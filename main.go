@@ -1,17 +1,12 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"io"
 	"math/rand"
 	"os"
-	"os/exec"
-	"strings"
 	"time"
 
-	"github.com/logrusorgru/aurora/v3"
-	"github.com/revett/sepias/internal/language"
+	"github.com/revett/sepias/internal/cmd"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
@@ -27,206 +22,212 @@ func main() {
 		},
 	)
 
-	argsWithoutProg := os.Args[1:]
-	if len(argsWithoutProg) != 1 {
-		log.Fatal().Msg("must pass exactly one argument to cli")
-	}
-	noteType := strings.ToLower(argsWithoutProg[0])
-
-	if ok := validateNoteType(noteType); !ok {
-		log.Fatal().Str("noteType", noteType).Msg("invalid note type")
-	}
-
-	var title string
-	var err error
-
-	// TODO: add option to disable colors.
-
-	switch noteType {
-	case system.String():
-		q := fmt.Sprintf(
-			"%s %s",
-			aurora.Magenta(system.String()).Bold(),
-			aurora.Cyan("(e.g. monthly-accounts)"),
-		)
-		title, err = readInput(q, system.String())
-	case project.String():
-		q := fmt.Sprintf(
-			"%s %s",
-			aurora.Magenta(project.String()).Bold(),
-			aurora.Cyan("(e.g. video-app.mvp-features)"),
-		)
-		title, err = readInput(q, project.String())
-	case entity.String():
-		q := fmt.Sprintf(
-			"%s %s",
-			aurora.Magenta(entity.String()).Bold(),
-			aurora.Cyan("(e.g. colleague.john-smith)"),
-		)
-		title, err = readInput(q, entity.String())
-	case interview.String():
-		title = time.Now().Format("2006.01.02.1504")
-	case area.String():
-		q := fmt.Sprintf(
-			"%s %s",
-			aurora.Magenta(area.String()).Bold(),
-			aurora.Cyan("(e.g. language.go.errors)"),
-		)
-		title, err = readInput(q, area.String())
-	case scratch.String():
-		title = time.Now().Format("2006.01.02.150405")
-	}
-	if err != nil {
-		log.Fatal().Err(err).Send()
-	}
-
-	// TODO: validate title.
-
-	filepath, err := createNote(noteType, title)
-	if err != nil {
-		log.Fatal().Err(err).Send()
-	}
-
-	err = exec.Command("code", filepath).Run() // nolint:gosec
-	if err != nil {
-		log.Fatal().Err(err).Send()
+	if err := cmd.Root().Execute(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 }
 
-const (
-	system noteType = iota
-	project
-	entity
-	interview
-	area
-	scratch
-)
+// 	argsWithoutProg := os.Args[1:]
+// 	if len(argsWithoutProg) != 1 {
+// 		log.Fatal().Msg("must pass exactly one argument to cli")
+// 	}
+// 	noteType := strings.ToLower(argsWithoutProg[0])
 
-type noteType int
+// 	if ok := validateNoteType(noteType); !ok {
+// 		log.Fatal().Str("noteType", noteType).Msg("invalid note type")
+// 	}
 
-// String implements the Stringer.String() interface.
-func (n noteType) String() string {
-	switch n {
-	case system:
-		return "system"
-	case project:
-		return "project"
-	case entity:
-		return "entity"
-	case interview:
-		return "interview"
-	case area:
-		return "area"
-	case scratch:
-		return "scratch"
-	default:
-		return "unknown"
-	}
-}
+// 	var title string
+// 	var err error
 
-func createNote(noteType string, title string) (string, error) {
-	filepath := fmt.Sprintf("./%s.%s.md", noteType, title)
+// 	// TODO: add option to disable colors.
 
-	if _, err := os.Stat(filepath); err == nil {
-		return "", fmt.Errorf("note already exists: %s", filepath)
-	}
+// 	switch noteType {
+// 	case system.String():
+// 		q := fmt.Sprintf(
+// 			"%s %s",
+// 			aurora.Magenta(system.String()).Bold(),
+// 			aurora.Cyan("(e.g. monthly-accounts)"),
+// 		)
+// 		title, err = readInput(q, system.String())
+// 	case project.String():
+// 		q := fmt.Sprintf(
+// 			"%s %s",
+// 			aurora.Magenta(project.String()).Bold(),
+// 			aurora.Cyan("(e.g. video-app.mvp-features)"),
+// 		)
+// 		title, err = readInput(q, project.String())
+// 	case entity.String():
+// 		q := fmt.Sprintf(
+// 			"%s %s",
+// 			aurora.Magenta(entity.String()).Bold(),
+// 			aurora.Cyan("(e.g. colleague.john-smith)"),
+// 		)
+// 		title, err = readInput(q, entity.String())
+// 	case interview.String():
+// 		title = time.Now().Format("2006.01.02.1504")
+// 	case area.String():
+// 		q := fmt.Sprintf(
+// 			"%s %s",
+// 			aurora.Magenta(area.String()).Bold(),
+// 			aurora.Cyan("(e.g. language.go.errors)"),
+// 		)
+// 		title, err = readInput(q, area.String())
+// 	case scratch.String():
+// 		title = time.Now().Format("2006.01.02.150405")
+// 	}
+// 	if err != nil {
+// 		log.Fatal().Err(err).Send()
+// 	}
 
-	header, err := generateFrontmatter()
-	if err != nil {
-		return "", err
-	}
+// 	// TODO: validate title.
 
-	tmpl, err := readTemplate(noteType)
-	if err != nil {
-		return "", err
-	}
+// 	filepath, err := createNote(noteType, title)
+// 	if err != nil {
+// 		log.Fatal().Err(err).Send()
+// 	}
 
-	file, err := os.Create(filepath) // nolint:gosec
-	if err != nil {
-		return "", fmt.Errorf("unable to create new note file: %w", err)
-	}
-	defer func() {
-		if err := file.Close(); err != nil {
-			log.Warn().Err(err).Msg("error occurred when closing file during defer")
-		}
-	}()
+// 	err = exec.Command("code", filepath).Run() // nolint:gosec
+// 	if err != nil {
+// 		log.Fatal().Err(err).Send()
+// 	}
+// }
 
-	c := fmt.Sprintf("%s\n%s", header, tmpl)
+// const (
+// 	system noteType = iota
+// 	project
+// 	entity
+// 	interview
+// 	area
+// 	scratch
+// )
 
-	_, err = file.WriteString(c)
-	if err != nil {
-		return "", fmt.Errorf("unable to write template to new note file: %w", err)
-	}
+// type noteType int
 
-	return filepath, nil
-}
+// // String implements the Stringer.String() interface.
+// func (n noteType) String() string {
+// 	switch n {
+// 	case system:
+// 		return "system"
+// 	case project:
+// 		return "project"
+// 	case entity:
+// 		return "entity"
+// 	case interview:
+// 		return "interview"
+// 	case area:
+// 		return "area"
+// 	case scratch:
+// 		return "scratch"
+// 	default:
+// 		return "unknown"
+// 	}
+// }
 
-// TODO: add option to disable cspell.
-func generateFrontmatter() (string, error) {
-	format := `---
-// cspell:disable-next-line
-id: %s
-created: %d (%s)
----
-`
+// func createNote(noteType string, title string) (string, error) {
+// 	filepath := fmt.Sprintf("./%s.%s.md", noteType, title)
 
-	id, err := language.RandomPhrase(phraseChunkLength)
-	if err != nil {
-		return "", fmt.Errorf("failed to generate random phrase: %w", err)
-	}
+// 	if _, err := os.Stat(filepath); err == nil {
+// 		return "", fmt.Errorf("note already exists: %s", filepath)
+// 	}
 
-	return fmt.Sprintf(
-		format, id, time.Now().Unix(), time.Now().Format(time.RFC1123),
-	), nil
-}
+// 	header, err := generateFrontmatter()
+// 	if err != nil {
+// 		return "", err
+// 	}
 
-func readInput(question string, prefix string) (string, error) {
-	reader := bufio.NewReader(os.Stdin)
+// 	tmpl, err := readTemplate(noteType)
+// 	if err != nil {
+// 		return "", err
+// 	}
 
-	fmt.Println(question) // nolint:forbidigo
-	s := fmt.Sprintf("> %s.", prefix)
-	fmt.Print(aurora.Faint(s)) // nolint:forbidigo
+// 	file, err := os.Create(filepath) // nolint:gosec
+// 	if err != nil {
+// 		return "", fmt.Errorf("unable to create new note file: %w", err)
+// 	}
+// 	defer func() {
+// 		if err := file.Close(); err != nil {
+// 			log.Warn().Err(err).Msg("error occurred when closing file during defer")
+// 		}
+// 	}()
 
-	answer, err := reader.ReadString('\n')
-	if err != nil {
-		return "", fmt.Errorf("failed to read input from use: %w", err)
-	}
+// 	c := fmt.Sprintf("%s\n%s", header, tmpl)
 
-	answer = strings.ReplaceAll(answer, "\n", "")
-	return answer, nil
-}
+// 	_, err = file.WriteString(c)
+// 	if err != nil {
+// 		return "", fmt.Errorf("unable to write template to new note file: %w", err)
+// 	}
 
-func readTemplate(noteType string) (string, error) {
-	filepath := fmt.Sprintf("./templates/%s.md", noteType)
+// 	return filepath, nil
+// }
 
-	f, err := os.Open(filepath) // nolint:gosec
-	if err != nil {
-		return "", fmt.Errorf("failed to open template file: %w", err)
-	}
+// // TODO: add option to disable cspell.
+// func generateFrontmatter() (string, error) {
+// 	format := `---
+// // cspell:disable-next-line
+// id: %s
+// created: %d (%s)
+// ---
+// `
 
-	b, err := io.ReadAll(f)
-	if err != nil {
-		return "", fmt.Errorf("failed to read contents of template file: %w", err)
-	}
+// 	id, err := language.RandomPhrase(phraseChunkLength)
+// 	if err != nil {
+// 		return "", fmt.Errorf("failed to generate random phrase: %w", err)
+// 	}
 
-	return string(b), nil
-}
+// 	return fmt.Sprintf(
+// 		format, id, time.Now().Unix(), time.Now().Format(time.RFC1123),
+// 	), nil
+// }
 
-func validateNoteType(input string) bool {
-	types := []noteType{
-		system,
-		project,
-		entity,
-		interview,
-		area,
-		scratch,
-	}
+// func readInput(question string, prefix string) (string, error) {
+// 	reader := bufio.NewReader(os.Stdin)
 
-	for _, e := range types {
-		if e.String() == input {
-			return true
-		}
-	}
+// 	fmt.Println(question) // nolint:forbidigo
+// 	s := fmt.Sprintf("> %s.", prefix)
+// 	fmt.Print(aurora.Faint(s)) // nolint:forbidigo
 
-	return false
-}
+// 	answer, err := reader.ReadString('\n')
+// 	if err != nil {
+// 		return "", fmt.Errorf("failed to read input from use: %w", err)
+// 	}
+
+// 	answer = strings.ReplaceAll(answer, "\n", "")
+// 	return answer, nil
+// }
+
+// func readTemplate(noteType string) (string, error) {
+// 	filepath := fmt.Sprintf("./templates/%s.md", noteType)
+
+// 	f, err := os.Open(filepath) // nolint:gosec
+// 	if err != nil {
+// 		return "", fmt.Errorf("failed to open template file: %w", err)
+// 	}
+
+// 	b, err := io.ReadAll(f)
+// 	if err != nil {
+// 		return "", fmt.Errorf("failed to read contents of template file: %w", err)
+// 	}
+
+// 	return string(b), nil
+// }
+
+// func validateNoteType(input string) bool {
+// 	types := []noteType{
+// 		system,
+// 		project,
+// 		entity,
+// 		interview,
+// 		area,
+// 		scratch,
+// 	}
+
+// 	for _, e := range types {
+// 		if e.String() == input {
+// 			return true
+// 		}
+// 	}
+
+// 	return false
+// }
