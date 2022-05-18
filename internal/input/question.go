@@ -9,6 +9,7 @@ import (
 	"github.com/logrusorgru/aurora/v3"
 )
 
+// Question asks the user a question and reads the input.
 func Question(question string, prefix string) (string, error) {
 	reader := bufio.NewReader(os.Stdin)
 

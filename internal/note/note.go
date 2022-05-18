@@ -10,25 +10,28 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+// Note holds configuration for a new note, as well as methods for creating it.
 type Note struct {
 	schema string
 	title  string
 }
 
-func NewNote(s string) (Note, error) {
+// NewNote creates a new Note type, whilst also validating the schema argument
+// against known valid schemas and generates a title for the new note.
+func NewNote(schema string) (Note, error) {
 	valid := false
 	for _, e := range Schemas() {
-		if e == s {
+		if e == schema {
 			valid = true
 		}
 	}
 
 	if !valid {
-		return Note{}, fmt.Errorf("unknown schema: %s", s)
+		return Note{}, fmt.Errorf("unknown schema: %s", schema)
 	}
 
 	note := Note{
-		schema: s,
+		schema: schema,
 	}
 
 	t, err := note.generateTitle()
@@ -40,6 +43,8 @@ func NewNote(s string) (Note, error) {
 	return note, nil
 }
 
+// Create checks that the new note does not already exist, then creates the new
+// note file, and appends contents to the file (header, template).
 func (n Note) Create() (string, error) {
 	filepath := fmt.Sprintf("./%s.%s.md", n.schema, n.title)
 

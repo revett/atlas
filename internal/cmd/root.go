@@ -32,12 +32,12 @@ func runE(c *cobra.Command, args []string) error {
 
 	fp, err := note.Create()
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to create new note: %w", err)
 	}
 
 	err = exec.Command("code", fp).Run() // nolint:gosec
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to open new note in vscode: %w", err)
 	}
 
 	return nil
