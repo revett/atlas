@@ -28,16 +28,6 @@ func main() {
 	}
 }
 
-// 	argsWithoutProg := os.Args[1:]
-// 	if len(argsWithoutProg) != 1 {
-// 		log.Fatal().Msg("must pass exactly one argument to cli")
-// 	}
-// 	noteType := strings.ToLower(argsWithoutProg[0])
-
-// 	if ok := validateNoteType(noteType); !ok {
-// 		log.Fatal().Str("noteType", noteType).Msg("invalid note type")
-// 	}
-
 // 	var title string
 // 	var err error
 
@@ -91,37 +81,6 @@ func main() {
 // 	err = exec.Command("code", filepath).Run() // nolint:gosec
 // 	if err != nil {
 // 		log.Fatal().Err(err).Send()
-// 	}
-// }
-
-// const (
-// 	system noteType = iota
-// 	project
-// 	entity
-// 	interview
-// 	area
-// 	scratch
-// )
-
-// type noteType int
-
-// // String implements the Stringer.String() interface.
-// func (n noteType) String() string {
-// 	switch n {
-// 	case system:
-// 		return "system"
-// 	case project:
-// 		return "project"
-// 	case entity:
-// 		return "entity"
-// 	case interview:
-// 		return "interview"
-// 	case area:
-// 		return "area"
-// 	case scratch:
-// 		return "scratch"
-// 	default:
-// 		return "unknown"
 // 	}
 // }
 
@@ -211,23 +170,4 @@ func main() {
 // 	}
 
 // 	return string(b), nil
-// }
-
-// func validateNoteType(input string) bool {
-// 	types := []noteType{
-// 		system,
-// 		project,
-// 		entity,
-// 		interview,
-// 		area,
-// 		scratch,
-// 	}
-
-// 	for _, e := range types {
-// 		if e.String() == input {
-// 			return true
-// 		}
-// 	}
-
-// 	return false
 // }
