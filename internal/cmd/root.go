@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os/exec"
 	"strings"
 
 	"github.com/revett/sepias/internal/note"
@@ -29,6 +30,15 @@ func runE(c *cobra.Command, args []string) error {
 		return fmt.Errorf("failed to create new note type: %w", err)
 	}
 
-	fmt.Println(note)
+	fp, err := note.Create()
+	if err != nil {
+		return err
+	}
+
+	err = exec.Command("code", fp).Run() // nolint:gosec
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
