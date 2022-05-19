@@ -18,7 +18,12 @@ created: %d (%s)
 ---
 `
 
-	id, err := language.RandomPhrase(phraseChunkLength)
+	d, err := language.Dictionary()
+	if err != nil {
+		return "", fmt.Errorf("unable to load dictionary from file: %w", err)
+	}
+
+	id, err := language.RandomPhrase(d, phraseChunkLength)
 	if err != nil {
 		return "", fmt.Errorf("failed to generate random phrase: %w", err)
 	}

@@ -20,6 +20,7 @@ func main() {
 	)
 
 	if err := cmd.Root().Execute(); err != nil {
+		// TODO: print stacktrace.
 		log.Fatal().Err(err).Send()
 	}
 }
