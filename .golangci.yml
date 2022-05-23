@@ -5,6 +5,7 @@ issues:
   exclude-use-default: false
 linters:
   disable:
+    - exhaustive
     - exhaustivestruct
     - exhaustruct
     - goerr113
