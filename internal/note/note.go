@@ -38,6 +38,11 @@ func NewNote(schema string) (Note, error) {
 	if err != nil {
 		return Note{}, fmt.Errorf("failed to generate title for new note: %w", err)
 	}
+
+	err = input.ValidateTitle(t)
+	if err != nil {
+		return Note{}, fmt.Errorf("invalid title format: %w", err)
+	}
 	note.title = t
 
 	return note, nil
@@ -111,8 +116,6 @@ func (n Note) generateTitle() (string, error) {
 			return time.Now().Format("2006.01.02.150405"), nil
 		}
 	}
-
-	// TODO: validate title.
 
 	return fn()
 }
