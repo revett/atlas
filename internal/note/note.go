@@ -34,16 +34,16 @@ func NewNote(schema string) (Note, error) {
 		schema: schema,
 	}
 
-	t, err := note.generateTitle()
+	title, err := note.generateTitle()
 	if err != nil {
 		return Note{}, fmt.Errorf("failed to generate title for new note: %w", err)
 	}
 
-	err = input.ValidateTitle(t)
+	err = input.ValidateTitle(title)
 	if err != nil {
 		return Note{}, fmt.Errorf("invalid title format: %w", err)
 	}
-	note.title = t
+	note.title = title
 
 	return note, nil
 }
