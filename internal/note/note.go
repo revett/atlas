@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/logrusorgru/aurora/v3"
+	tea "github.com/charmbracelet/bubbletea"
 	"github.com/revett/sepias/internal/input"
 	"github.com/rs/zerolog/log"
 )
@@ -118,14 +118,14 @@ func (n Note) generateTitle() (string, error) {
 }
 
 func readInput(schema string, example string) (string, error) {
-	q := fmt.Sprintf(
-		"%s (e.g. %s)", aurora.Magenta(schema).Bold(), aurora.Cyan(example),
+	p := tea.NewProgram(
+		input.NewModel(schema, example),
 	)
 
-	t, err := input.Question(q, schema)
+	m, err := p.StartReturningModel()
 	if err != nil {
-		return "", fmt.Errorf("failed when reading answer to question: %w", err)
+		return "", err
 	}
 
-	return t, nil
+	return m.View(), nil
 }
