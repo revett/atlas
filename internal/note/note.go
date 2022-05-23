@@ -124,7 +124,7 @@ func readInput(schema string, example string) (string, error) {
 
 	m, err := p.StartReturningModel()
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("failed when starting tui model: %w", err)
 	}
 
 	return m.View(), nil

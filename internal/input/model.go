@@ -22,21 +22,16 @@ const (
 	inputWidth     = 64
 )
 
-var (
-	exampleStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("44"))
-	schemaStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color("205")).Bold(true)
-)
-
 // NewModel creates a new Model type.
 func NewModel(schema string, example string) Model {
-	ti := textinput.New()
-	ti.Focus()
-	ti.CharLimit = characterLimit
-	ti.Width = inputWidth
-	ti.Prompt = fmt.Sprintf("> %s.", schema)
+	input := textinput.New()
+	input.Focus()
+	input.CharLimit = characterLimit
+	input.Width = inputWidth
+	input.Prompt = fmt.Sprintf("> %s.", schema)
 
 	return Model{
-		input:   ti,
+		input:   input,
 		example: example,
 		schema:  schema,
 	}
@@ -48,10 +43,10 @@ func (m Model) Init() tea.Cmd {
 }
 
 // Update implements the bubbletea.Model.Update() interface.
-func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) { // nolint:ireturn
 	var cmd tea.Cmd
 
-	switch msg := msg.(type) {
+	switch msg := msg.(type) { // nolint:gocritic
 	case tea.KeyMsg:
 		switch msg.Type {
 		case tea.KeyEnter, tea.KeyCtrlC, tea.KeyEsc:
@@ -72,6 +67,11 @@ func (m Model) View() string {
 	if m.complete {
 		return m.input.Value()
 	}
+
+	exampleStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("44"))
+	schemaStyle := lipgloss.NewStyle().Foreground(
+		lipgloss.Color("205"),
+	).Bold(true)
 
 	return fmt.Sprintf(
 		"%s (e.g. %s)\n%s\n",
