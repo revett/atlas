@@ -21,7 +21,7 @@ type generatorFunc func(int) (string, error)
 // e.g. "ohylwsib-ttgfjwlj-hwqbxlyj-owyrlces".
 func RandomPhrase(dictionary []string, size int) (string, error) {
 	gf := generatePhrase(dictionary)
-	if dictionary != nil {
+	if dictionary == nil {
 		gf = generateString
 	}
 

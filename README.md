@@ -26,6 +26,9 @@ The CLI I use to manage my notes / personal knowledge management
   formatting text to a preferred line length
 - [cSpell](https://github.com/streetsidesoftware/vscode-spell-checker) for spell
   checking within markdown files
+- [TODO Highlight](https://github.com/wayou/vscode-todo-highlight) to highlight
+  `todo-` annotations within markdown files, as I use this as a placeholder when
+  needing to create additional notes
 
 ## Schema
 
