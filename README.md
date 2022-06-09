@@ -4,7 +4,8 @@
 
 # Sepias
 
-The CLI I use to manage my notes / personal knowledge management
+Minimalist CLI and VS Code workflow that I use to manage my notes / personal
+knowledge management
 ([PKM](https://en.wikipedia.org/wiki/Personal_knowledge_management)).
 
 ## Design Principles
@@ -14,21 +15,6 @@ The CLI I use to manage my notes / personal knowledge management
 - Schema inspired by the [PARA method](https://fortelabs.co/blog/para)
 - Simplicity, originally started as a
   [bash script](https://github.com/revett/sepias/commit/ef85ce9d70593c8b3dfb8e1c2aab56300bbee959)
-
-## Workflow
-
-- VS Code with a pinned terminal editor in tab 1 position
-- `CMD-P` for navigating to notes within VS Code
-- `CMD-SHIFT-F` for searching all notes
-- [Markdown Memo](https://github.com/svsool/memo) for creating backlinks in VS
-  Code
-- [Reflow Markdown](https://github.com/marvhen/reflowmarkdown) for quickly
-  formatting text to a preferred line length
-- [cSpell](https://github.com/streetsidesoftware/vscode-spell-checker) for spell
-  checking within markdown files
-- [TODO Highlight](https://github.com/wayou/vscode-todo-highlight) to highlight
-  `todo-` annotations within markdown files, as I use this as a placeholder when
-  needing to create additional notes
 
 ## Schema
 
@@ -42,3 +28,36 @@ All notes fall under a specific schema type:
 - **A**rea - Sphere of activity with a standard to be maintained over time
   (taken from the [PARA method](https://fortelabs.co/blog/para))
 - **S**cratch - Random note
+
+## Workflow
+
+- [VS Code](https://code.visualstudio.com/)
+- Pinned terminal in tab 1 editor position (`Cmd+K Shift+Enter`)
+- CLI usage of `sepias` within this terminal
+- `Cmd+P` for navigating to notes within VS Code
+- `Cmd+Shift+F` for searching all notes
+
+### VS Code Extensions
+
+| Extension                                                            | Description                                                                                           |
+| -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| [Markdown Memo](https://github.com/svsool/memo)                      | • Creating and following backlinks between notes <br>• Renaming notes with automatic backlink updates |
+| [Reflow Markdown](https://github.com/marvhen/reflowmarkdown)         | • Quickly format text to a preferred line length                                                      |
+| [cSpell](https://github.com/streetsidesoftware/vscode-spell-checker) | • Spell checking                                                                                      |
+| [TODO Highlight](https://github.com/wayou/vscode-todo-highlight)     | • Highlight `todo-` annotations within notes                                                          |
+
+### New Note Reminders
+
+To avoid breaking the
+[flow of writing](<https://en.wikipedia.org/wiki/Flow_(psychology)>) a new note, I
+often will make use of the `todo-` annotation as a reminder to come back and
+create other notes. For example:
+
+```
+Stoicism is a school of todo-hellenistic philosophy in Athens in the early 3rd
+century BC.
+```
+
+Later when I have time, I'll go back and write notes on any `todo-` annotations
+that the [TODO Highlight](https://github.com/wayou/vscode-todo-highlight)
+extension prompts for within the "Problems" panel.
