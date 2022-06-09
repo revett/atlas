@@ -19,7 +19,10 @@ func main() {
 		},
 	)
 
-	if err := cmd.Root().Execute(); err != nil {
+	root := cmd.Root()
+	root.AddCommand(cmd.Completion())
+
+	if err := root.Execute(); err != nil {
 		// TODO: print stacktrace.
 		log.Fatal().Err(err).Send()
 	}
