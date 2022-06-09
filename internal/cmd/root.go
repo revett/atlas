@@ -18,11 +18,11 @@ func Root() *cobra.Command {
 		Short:                 "Tool that @revett uses to manage his notes",
 		Args:                  cobra.ExactValidArgs(1),
 		ValidArgs:             note.Schemas(),
-		RunE:                  runE,
+		RunE:                  rootRunE,
 	}
 }
 
-func runE(c *cobra.Command, args []string) error {
+func rootRunE(c *cobra.Command, args []string) error {
 	note, err := note.NewNote(
 		strings.ToLower(args[0]),
 	)
