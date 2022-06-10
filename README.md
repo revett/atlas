@@ -61,3 +61,12 @@ century BC.
 Later when I have time, I'll go back and write notes on any `todo-` annotations
 that the [TODO Highlight](https://github.com/wayou/vscode-todo-highlight)
 extension prompts for within the "Problems" panel.
+
+## Shell Completion
+
+Generate the shell completion script (Bash, fish, Zsh, PowerShell) using the
+CLI:
+
+```
+sepias completion -h
+```
