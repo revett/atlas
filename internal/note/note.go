@@ -39,6 +39,8 @@ func NewNote(schema string) (Note, error) {
 		return Note{}, fmt.Errorf("failed to generate title for new note: %w", err)
 	}
 
+	title = fmt.Sprintf("%s.%s", schema, title)
+
 	err = input.ValidateTitle(title)
 	if err != nil {
 		return Note{}, fmt.Errorf("invalid title format: %w", err)
@@ -51,7 +53,7 @@ func NewNote(schema string) (Note, error) {
 // Create checks that the new note does not already exist, then creates the new
 // note file, and appends contents to the file (header, template).
 func (n Note) Create() (string, error) {
-	filepath := fmt.Sprintf("./%s.%s.md", n.schema, n.title)
+	filepath := fmt.Sprintf("./%s.md", n.title)
 
 	if _, err := os.Stat(filepath); err == nil {
 		return "", fmt.Errorf("note already exists: %s", filepath)
