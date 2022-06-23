@@ -70,3 +70,47 @@ CLI:
 ```
 sepias completion -h
 ```
+
+## Templates
+
+The following templates are required locally:
+
+```
+./templates/system.md
+./templates/entity.md
+./templates/project.md
+./templates/interview.cultural.md
+./templates/interview.technical.md
+./templates/area.md
+./templates/scratch.md
+```
+
+Further optional custom templates can be added, for example:
+
+```
+./templates/area.language.md
+./templates/area.language.go.md
+...
+```
+
+The template is selected if it matches the prefix of the new note, and the
+template with the most hierarchical parts will be used first.
+
+### Example
+
+A new note is being created:
+
+```
+area.language.go.sentinel-errors.md
+```
+
+The following templates match as a prefix for the new note:
+
+```
+./templates/area.md
+./templates/area.language.md
+./templates/area.language.go.md
+```
+
+`./templates/area.language.go.md` is selected as it has the most hierarchical
+parts, three.
