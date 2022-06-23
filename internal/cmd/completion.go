@@ -24,13 +24,17 @@ func Completion() *cobra.Command {
 func completionRunE(c *cobra.Command, args []string) error {
 	switch args[0] {
 	case "bash":
-		return Root().GenBashCompletion(os.Stdout)
+		err := Root().GenBashCompletion(os.Stdout)
+		return fmt.Errorf("failed to generate bash completion: %w", err)
 	case "fish":
-		return Root().GenFishCompletion(os.Stdout, true)
+		err := Root().GenFishCompletion(os.Stdout, true)
+		return fmt.Errorf("failed to generate fish completion: %w", err)
 	case "powershell":
-		return Root().GenPowerShellCompletionWithDesc(os.Stdout)
+		err := Root().GenPowerShellCompletionWithDesc(os.Stdout)
+		return fmt.Errorf("failed to generate powershell completion: %w", err)
 	case "zsh":
-		return Root().GenZshCompletion(os.Stdout)
+		err := Root().GenZshCompletion(os.Stdout)
+		return fmt.Errorf("failed to generate zsh completion: %w", err)
 	default:
 		return nil
 	}
