@@ -34,7 +34,7 @@ func NewNote(schema string) (Note, error) {
 		schema: schema,
 	}
 
-	title, err := note.generateTitle()
+	title, err := generateNoteTitle(note)
 	if err != nil {
 		return Note{}, fmt.Errorf("failed to generate title for new note: %w", err)
 	}
@@ -50,10 +50,10 @@ func NewNote(schema string) (Note, error) {
 	return note, nil
 }
 
-// Create checks that the new note does not already exist, then creates the new
-// note file, and appends contents to the file (header, template).
-func (n Note) Create() (string, error) {
-	filepath := fmt.Sprintf("./%s.md", n.title)
+// CreateNote checks that the new note does not already exist, then creates the
+// new note file, and appends contents to the file (header, template).
+func CreateNote(note Note) (string, error) {
+	filepath := fmt.Sprintf("./%s.md", note.title)
 
 	if _, err := os.Stat(filepath); err == nil {
 		return "", fmt.Errorf("note already exists: %s", filepath)
@@ -64,7 +64,7 @@ func (n Note) Create() (string, error) {
 		return "", err
 	}
 
-	templatePath, err := findTemplate(n.title)
+	templatePath, err := findTemplate(note.title)
 	if err != nil {
 		return "", err
 	}
@@ -94,10 +94,10 @@ func (n Note) Create() (string, error) {
 	return filepath, nil
 }
 
-func (n Note) generateTitle() (string, error) { // nolint:funlen
+func generateNoteTitle(note Note) (string, error) { // nolint:funlen
 	var fn func() (string, error)
 
-	switch n.schema {
+	switch note.schema {
 	case SystemSchema:
 		fn = func() (string, error) {
 			return readInput(
