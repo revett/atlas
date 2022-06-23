@@ -93,8 +93,8 @@ Further optional custom templates can be added, for example:
 ...
 ```
 
-The template is selected if it matches the prefix of the new note, and the
-template with the most hierarchical parts will be used first.
+The template is selected if it matches the prefix of the new note; the template
+with the most hierarchical parts will be used first.
 
 ### Example
 
