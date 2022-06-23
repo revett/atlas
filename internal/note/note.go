@@ -64,7 +64,12 @@ func (n Note) Create() (string, error) {
 		return "", err
 	}
 
-	tmpl, err := readSchemaTemplate(n.schema)
+	templatePath, err := findTemplate(n.title)
+	if err != nil {
+		return "", err
+	}
+
+	tmpl, err := readTemplate(templatePath)
 	if err != nil {
 		return "", err
 	}
@@ -95,23 +100,56 @@ func (n Note) generateTitle() (string, error) {
 	switch n.schema {
 	case SystemSchema:
 		fn = func() (string, error) {
-			return readInput(SystemSchema, "monthly-accounts")
+			return readInput(
+				SystemSchema,
+				[]string{
+					"monthly-accounts",
+				},
+			)
 		}
 	case ProjectSchema:
 		fn = func() (string, error) {
-			return readInput(ProjectSchema, "video-app.mvp-features")
+			return readInput(
+				ProjectSchema,
+				[]string{
+					"video-app.mvp-features",
+				},
+			)
 		}
 	case EntitySchema:
 		fn = func() (string, error) {
-			return readInput(EntitySchema, "colleague.john-smith")
+			return readInput(
+				EntitySchema,
+				[]string{
+					"colleague.john-smith",
+				},
+			)
 		}
 	case InterviewSchema:
 		fn = func() (string, error) {
-			return time.Now().Format("2006.01.02.1504"), nil
+			input, err := readInput(
+				InterviewSchema,
+				[]string{
+					"cultural",
+					"technical",
+				},
+			)
+			if err != nil {
+				return "", err
+			}
+
+			return fmt.Sprintf(
+				"%s.%s", input, time.Now().Format("2006.01.02.1504"),
+			), nil
 		}
 	case AreaSchema:
 		fn = func() (string, error) {
-			return readInput(AreaSchema, "language.go.errors")
+			return readInput(
+				AreaSchema,
+				[]string{
+					"language.go.errors",
+				},
+			)
 		}
 	case ScratchSchema:
 		fn = func() (string, error) {
@@ -122,9 +160,9 @@ func (n Note) generateTitle() (string, error) {
 	return fn()
 }
 
-func readInput(schema string, example string) (string, error) {
+func readInput(schema string, examples []string) (string, error) {
 	p := tea.NewProgram(
-		input.NewModel(schema, example),
+		input.NewModel(schema, examples),
 	)
 
 	m, err := p.StartReturningModel()
