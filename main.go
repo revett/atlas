@@ -23,7 +23,6 @@ func main() {
 	root.AddCommand(cmd.Completion())
 
 	if err := root.Execute(); err != nil {
-		// TODO: print stacktrace.
 		log.Fatal().Err(err).Send()
 	}
 }
