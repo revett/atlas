@@ -22,12 +22,12 @@ func Root() *cobra.Command {
 }
 
 func rootRunE(c *cobra.Command, args []string) error {
-	note, err := note.NewNote(args[0])
+	n, err := note.NewNote(args[0])
 	if err != nil {
 		return fmt.Errorf("failed to create new note type: %w", err)
 	}
 
-	fp, err := note.Create()
+	fp, err := note.CreateNote(n)
 	if err != nil {
 		return fmt.Errorf("failed to create new note: %w", err)
 	}
