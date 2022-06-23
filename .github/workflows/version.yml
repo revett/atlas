@@ -18,4 +18,4 @@ jobs:
       - name: Output Branch Version
         run: echo "${{ env.BRANCH_VERSION }}"
       - name: Compare Versions
-        run: '[[ ${{ env.MAIN_VERSION }}" != "${{ env.BRANCH_VERSION }}" ]]'
+        run: '[[ "${{ env.MAIN_VERSION }}" != "${{ env.BRANCH_VERSION }}" ]]'
