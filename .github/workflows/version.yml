@@ -17,3 +17,5 @@ jobs:
         run: echo "BRANCH_VERSION=$(cat ./VERSION)" >> $GITHUB_ENV
       - name: Output Branch Version
         run: echo "${{ env.BRANCH_VERSION }}"
+      - name: Compare Versions
+        run: bash [[ "${{ env.MAIN_VERSION }}" == "${{ env.BRANCH_VERSION }}" ]]
