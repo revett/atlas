@@ -54,7 +54,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) { // nolint:ireturn
 			m.complete = true
 			return m, tea.Quit
 		case tea.KeyTab:
-			// TODO: implement tab completion using existing note hierachy.
+			// TODO: implement tab completion using existing note hierarchy.
 		}
 	}
 
