@@ -94,7 +94,7 @@ func (n Note) Create() (string, error) {
 	return filepath, nil
 }
 
-func (n Note) generateTitle() (string, error) {
+func (n Note) generateTitle() (string, error) { // nolint:funlen
 	var fn func() (string, error)
 
 	switch n.schema {
