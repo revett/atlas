@@ -1,0 +1,14 @@
+name: Version
+on: push
+permissions:
+  contents: read
+jobs:
+  golangci:
+    name: Run
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Fetch Main Version
+        run: curl https://raw.githubusercontent.com/revett/sepias/main/VERSION
+        shell: bash
