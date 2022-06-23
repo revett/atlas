@@ -62,15 +62,6 @@ Later when I have time, I'll go back and write notes on any `todo-` annotations
 that the [TODO Highlight](https://github.com/wayou/vscode-todo-highlight)
 extension prompts for within the "Problems" panel.
 
-## Shell Completion
-
-Generate the shell completion script (Bash, fish, Zsh, PowerShell) using the
-CLI:
-
-```
-sepias completion -h
-```
-
 ## Templates
 
 The following templates are required locally:
@@ -114,3 +105,12 @@ The following templates match as a prefix for the new note:
 
 `./templates/area.language.go.md` is selected as it has the most hierarchical
 parts, three.
+
+## Shell Completion
+
+Generate the shell completion script (Bash, fish, Zsh, PowerShell) using the
+CLI:
+
+```
+sepias completion -h
+```
