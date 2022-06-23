@@ -4,6 +4,11 @@
 
 # Sepias
 
+[![Builds](https://img.shields.io/github/checks-status/revett/sepias/main?label=build&style=flat-square)](https://github.com/revett/sepias/actions?query=branch%3Amain)
+[![GoDoc](https://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](https://pkg.go.dev/github.com/revett/sepias)
+[![Go Report Card](https://goreportcard.com/badge/github.com/revett/sepias?style=flat-square)](https://goreportcard.com/report/github.com/revett/sepias)
+[![License](https://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://github.com/revett/sepias/blob/main/LICENSE)
+
 Minimalist CLI and VS Code workflow that I use to manage my notes / personal
 knowledge management
 ([PKM](https://en.wikipedia.org/wiki/Personal_knowledge_management)).
