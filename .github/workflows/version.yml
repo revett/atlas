@@ -10,5 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Fetch Main Version
-        run: curl -s https://raw.githubusercontent.com/revett/sepias/main/VERSION
+        run: echo "MAIN_VERSION=$(curl -s https://raw.githubusercontent.com/revett/sepias/main/VERSION)" >> $GITHUB_ENV
         shell: bash
+      - name: Output Main Versions
+        run: echo "${{ env.MAIN_VERSION }}"
