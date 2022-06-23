@@ -2,6 +2,7 @@ package input
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
@@ -12,7 +13,7 @@ import (
 // title of a new note.
 type Model struct {
 	complete bool
-	example  string
+	examples []string
 	input    textinput.Model
 	schema   string
 }
@@ -23,7 +24,7 @@ const (
 )
 
 // NewModel creates a new Model type.
-func NewModel(schema string, example string) Model {
+func NewModel(schema string, examples []string) Model {
 	input := textinput.New()
 	input.Focus()
 	input.CharLimit = characterLimit
@@ -31,9 +32,9 @@ func NewModel(schema string, example string) Model {
 	input.Prompt = fmt.Sprintf("> %s.", schema)
 
 	return Model{
-		input:   input,
-		example: example,
-		schema:  schema,
+		input:    input,
+		examples: examples,
+		schema:   schema,
 	}
 }
 
@@ -73,10 +74,19 @@ func (m Model) View() string {
 		lipgloss.Color("205"),
 	).Bold(true)
 
+	renderedExamples := []string{}
+
+	for _, e := range m.examples {
+		renderedExamples = append(
+			renderedExamples,
+			exampleStyle.Render(e),
+		)
+	}
+
 	return fmt.Sprintf(
 		"%s (e.g. %s)\n%s\n",
 		schemaStyle.Render(m.schema),
-		exampleStyle.Render(m.example),
+		strings.Join(renderedExamples, ", "),
 		m.input.View(),
 	)
 }
