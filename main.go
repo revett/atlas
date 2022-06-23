@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "embed"
 	"math/rand"
 	"os"
 	"time"
@@ -9,6 +10,9 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
+
+//go:embed VERSION
+var version string
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
@@ -20,7 +24,10 @@ func main() {
 	)
 
 	root := cmd.Root()
-	root.AddCommand(cmd.Completion())
+	root.AddCommand(
+		cmd.Completion(),
+		cmd.Version(version),
+	)
 
 	if err := root.Execute(); err != nil {
 		log.Fatal().Err(err).Send()
