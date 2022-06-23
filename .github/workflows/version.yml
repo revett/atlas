@@ -13,7 +13,7 @@ jobs:
         run: echo "MAIN_VERSION=$(curl -s https://raw.githubusercontent.com/revett/sepias/main/VERSION)" >> $GITHUB_ENV
       - name: Output Main Version
         run: echo "${{ env.MAIN_VERSION }}"
-      - name: List files
-        run: ls -l
-      - name: List current directory
-        run: pwd
+      - name: Get Branch Version
+        run: echo "BRANCH_VERSION=$(cat ./VERSION)" >> $GITHUB_ENV
+      - name: Output Branch Version
+        run: echo "${{ env.BRANCH_VERSION }}"
