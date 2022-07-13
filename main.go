@@ -26,6 +26,7 @@ func main() {
 	root := cmd.Root()
 	root.AddCommand(
 		cmd.Completion(),
+		cmd.Doctor(),
 		cmd.Version(version),
 	)
 

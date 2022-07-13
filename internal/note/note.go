@@ -121,7 +121,7 @@ func generateNoteTitle(note Note) (string, error) { // nolint:funlen
 			return readInput(
 				EntitySchema,
 				[]string{
-					"colleague.john-smith",
+					"person.colleague.john-smith",
 				},
 			)
 		}
