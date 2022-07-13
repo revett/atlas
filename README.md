@@ -119,3 +119,11 @@ CLI:
 ```
 sepias completion -h
 ```
+
+## Doctor
+
+Validate a local knowledge base by using the doctor command:
+
+```
+sepias doctor
+```
