@@ -23,16 +23,21 @@ knowledge management
 
 ## Schema
 
+> _The
+> [original schema](https://github.com/revett/sepias/tree/275e8fae6fd3c60b27d220bf137e2441f616ccb3#schema)
+> was an acronym for `sepias`, thus naming the project._
+
 All notes fall under a specific schema type:
 
-- **S**ystem - Checklists to follow when carrying out repeated tasks
-- **E**ntity - Person, company, location etc
-- **P**roject - Notes linked to a goal, with a deadline (taken from the
-  [PARA method](https://fortelabs.co/blog/para))
-- **I**nterview - Notes from interviewing candidates
-- **A**rea - Sphere of activity with a standard to be maintained over time
+- **Area** - Sphere of activity with a standard to be maintained over time
   (taken from the [PARA method](https://fortelabs.co/blog/para))
-- **S**cratch - Random note
+- **Entity** - Person, company, location etc
+- **Interview** - Notes from interviewing candidates
+- **Project** - Notes linked to a goal, with a deadline (taken from the
+  [PARA method](https://fortelabs.co/blog/para))
+- **Review** - Weekly journal for keeping track of progress and events
+- **Scratch** - Random note
+- **System** - Checklists to follow when carrying out repeated tasks
 
 ## Workflow
 
@@ -54,8 +59,8 @@ All notes fall under a specific schema type:
 ### New Note Reminders
 
 To avoid breaking the
-[flow of writing](<https://en.wikipedia.org/wiki/Flow_(psychology)>) a new note, I
-often will make use of the `todo-` annotation as a reminder to come back and
+[flow of writing](<https://en.wikipedia.org/wiki/Flow_(psychology)>) a new note,
+I often will make use of the `todo-` annotation as a reminder to come back and
 create other notes. For example:
 
 ```
@@ -72,13 +77,14 @@ extension prompts for within the "Problems" panel.
 The following templates are required locally:
 
 ```
-./templates/system.md
+./templates/area.md
 ./templates/entity.md
-./templates/project.md
 ./templates/interview.cultural.md
 ./templates/interview.technical.md
-./templates/area.md
+./templates/project.md
+./templates/review.md
 ./templates/scratch.md
+./templates/system.md
 ```
 
 Further optional custom templates can be added, for example:
