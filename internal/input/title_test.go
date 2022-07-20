@@ -72,7 +72,7 @@ func TestValidateTitle(t *testing.T) { // nolint:funlen
 		},
 	}
 
-	for n, testCase := range tests { // nolint:paralleltest
+	for n, testCase := range tests {
 		tc := testCase // nolint:varnamelen
 
 		t.Run(n, func(t *testing.T) {

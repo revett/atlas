@@ -11,8 +11,8 @@ import (
 // Root returns a cobra.Command type that acts as the entrypoint CLI command.
 func Root() *cobra.Command {
 	return &cobra.Command{
-		Use:                   "sepias {system|entity|project|interview|area|scratch}",
-		Example:               "sepias area",
+		Use:                   "sepias {area|entity|interview|project|review|scratch|system}",
+		Example:               "sepias scratch",
 		DisableFlagsInUseLine: true,
 		Short:                 "Tool that @revett uses to manage his notes",
 		Args:                  cobra.ExactValidArgs(1),
