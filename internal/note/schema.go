@@ -16,7 +16,7 @@ const (
 	// AreaSchema represents the "area" schema type.
 	AreaSchema = "area"
 
-	// Review represents the "review" schema type
+	// Review represents the "review" schema type.
 	ReviewSchema = "review"
 
 	// ScratchSchema represents the "scratch" schema type.
