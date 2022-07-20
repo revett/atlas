@@ -98,21 +98,12 @@ func generateNoteTitle(note Note) (string, error) { // nolint:funlen
 	var fn func() (string, error)
 
 	switch note.schema {
-	case SystemSchema:
+	case AreaSchema:
 		fn = func() (string, error) {
 			return readInput(
-				SystemSchema,
+				AreaSchema,
 				[]string{
-					"monthly-accounts",
-				},
-			)
-		}
-	case ProjectSchema:
-		fn = func() (string, error) {
-			return readInput(
-				ProjectSchema,
-				[]string{
-					"video-app.mvp-features",
+					"language.go.errors",
 				},
 			)
 		}
@@ -142,18 +133,32 @@ func generateNoteTitle(note Note) (string, error) { // nolint:funlen
 				"%s.%s", input, time.Now().Format("2006.01.02.1504"),
 			), nil
 		}
-	case AreaSchema:
+	case ProjectSchema:
 		fn = func() (string, error) {
 			return readInput(
-				AreaSchema,
+				ProjectSchema,
 				[]string{
-					"language.go.errors",
+					"video-app.mvp-features",
 				},
 			)
+		}
+	case ReviewSchema:
+		fn = func() (string, error) {
+			y, w := time.Now().ISOWeek()
+			return fmt.Sprintf("%d.%d", y, w), nil
 		}
 	case ScratchSchema:
 		fn = func() (string, error) {
 			return time.Now().Format("2006.01.02.150405"), nil
+		}
+	case SystemSchema:
+		fn = func() (string, error) {
+			return readInput(
+				SystemSchema,
+				[]string{
+					"monthly-accounts",
+				},
+			)
 		}
 	}
 
