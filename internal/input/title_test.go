@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestValidateTitle(t *testing.T) { // nolint:funlen
+func TestValidateTitleFormat(t *testing.T) { // nolint:funlen
 	t.Parallel()
 
 	tests := map[string]struct {
@@ -78,7 +78,7 @@ func TestValidateTitle(t *testing.T) { // nolint:funlen
 		t.Run(n, func(t *testing.T) {
 			t.Parallel()
 
-			err := input.ValidateTitle(tc.input)
+			err := input.ValidateTitleFormat(tc.input)
 			tc.errFunc(t, err)
 		})
 	}
