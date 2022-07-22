@@ -49,6 +49,9 @@ All notes fall under a specific schema type:
 
 ### VS Code Extensions
 
+> See
+> [`.vscode/extensions.json`](https://github.com/revett/sepias/blob/main/.vscode/extensions.json).
+
 | Extension                                                            | Description                                                                                           |
 | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | [cSpell](https://github.com/streetsidesoftware/vscode-spell-checker) | • Spell checking                                                                                      |
