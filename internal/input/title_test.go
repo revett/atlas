@@ -83,3 +83,40 @@ func TestValidateTitleFormat(t *testing.T) { // nolint:funlen
 		})
 	}
 }
+
+func TestValidateTitleBaseSchemaType(t *testing.T) {
+	t.Parallel()
+
+	tests := map[string]struct {
+		input   string
+		errFunc require.ErrorAssertionFunc
+	}{
+		"Unknown": {
+			input:   "foo.bar.baz",
+			errFunc: require.Error,
+		},
+		"Empty": {
+			input:   "",
+			errFunc: require.Error,
+		},
+		"Success": {
+			input:   "area.language.go.errors",
+			errFunc: require.NoError,
+		},
+		"ArchiveType": {
+			input:   "archive.area.language.go.errors",
+			errFunc: require.NoError,
+		},
+	}
+
+	for n, testCase := range tests {
+		tc := testCase // nolint:varnamelen
+
+		t.Run(n, func(t *testing.T) {
+			t.Parallel()
+
+			err := input.ValidateTitleBaseSchemaType(tc.input)
+			tc.errFunc(t, err)
+		})
+	}
+}
