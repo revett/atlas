@@ -7,6 +7,7 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/revett/sepias/internal/input"
+	"github.com/revett/sepias/internal/note/hierarchy"
 	"github.com/rs/zerolog/log"
 )
 
@@ -20,7 +21,7 @@ type Note struct {
 // against known valid schemas and generates a title for the new note.
 func NewNote(schema string) (Note, error) {
 	valid := false
-	for _, e := range Schemas() {
+	for _, e := range hierarchy.Schemas() {
 		if e == schema {
 			valid = true
 		}
@@ -41,7 +42,7 @@ func NewNote(schema string) (Note, error) {
 
 	title = fmt.Sprintf("%s.%s", schema, title)
 
-	err = input.ValidateTitle(title)
+	err = input.ValidateTitleFormat(title)
 	if err != nil {
 		return Note{}, fmt.Errorf("invalid title format: %w", err)
 	}
@@ -98,28 +99,28 @@ func generateNoteTitle(note Note) (string, error) { // nolint:funlen
 	var fn func() (string, error)
 
 	switch note.schema {
-	case AreaSchema:
+	case hierarchy.AreaSchema:
 		fn = func() (string, error) {
 			return readInput(
-				AreaSchema,
+				hierarchy.AreaSchema,
 				[]string{
 					"language.go.errors",
 				},
 			)
 		}
-	case EntitySchema:
+	case hierarchy.EntitySchema:
 		fn = func() (string, error) {
 			return readInput(
-				EntitySchema,
+				hierarchy.EntitySchema,
 				[]string{
 					"person.colleague.john-smith",
 				},
 			)
 		}
-	case InterviewSchema:
+	case hierarchy.InterviewSchema:
 		fn = func() (string, error) {
 			input, err := readInput(
-				InterviewSchema,
+				hierarchy.InterviewSchema,
 				[]string{
 					"cultural",
 					"technical",
@@ -133,28 +134,28 @@ func generateNoteTitle(note Note) (string, error) { // nolint:funlen
 				"%s.%s", input, time.Now().Format("2006.01.02.1504"),
 			), nil
 		}
-	case ProjectSchema:
+	case hierarchy.ProjectSchema:
 		fn = func() (string, error) {
 			return readInput(
-				ProjectSchema,
+				hierarchy.ProjectSchema,
 				[]string{
 					"video-app.mvp-features",
 				},
 			)
 		}
-	case ReviewSchema:
+	case hierarchy.ReviewSchema:
 		fn = func() (string, error) {
 			y, w := time.Now().ISOWeek()
 			return fmt.Sprintf("%d.%d", y, w), nil
 		}
-	case ScratchSchema:
+	case hierarchy.ScratchSchema:
 		fn = func() (string, error) {
 			return time.Now().Format("2006.01.02.150405"), nil
 		}
-	case SystemSchema:
+	case hierarchy.SystemSchema:
 		fn = func() (string, error) {
 			return readInput(
-				SystemSchema,
+				hierarchy.SystemSchema,
 				[]string{
 					"monthly-accounts",
 				},

@@ -5,6 +5,7 @@ import (
 	"os/exec"
 
 	"github.com/revett/sepias/internal/note"
+	"github.com/revett/sepias/internal/note/hierarchy"
 	"github.com/spf13/cobra"
 )
 
@@ -16,7 +17,7 @@ func Root() *cobra.Command {
 		DisableFlagsInUseLine: true,
 		Short:                 "Tool that @revett uses to manage his notes",
 		Args:                  cobra.ExactValidArgs(1),
-		ValidArgs:             note.Schemas(),
+		ValidArgs:             hierarchy.Schemas(),
 		RunE:                  rootRunE,
 	}
 }

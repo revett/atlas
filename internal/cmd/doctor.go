@@ -46,9 +46,16 @@ func doctorRunE(c *cobra.Command, args []string) error {
 			note.Name(), filepath.Ext(note.Name()),
 		)
 
-		if err := input.ValidateTitle(withoutExtension); err != nil {
+		if err := input.ValidateTitleFormat(withoutExtension); err != nil {
 			foundError := fmt.Errorf(
 				"invalid note title found in '%s' file: %w", note.Name(), err,
+			)
+			foundErrors = append(foundErrors, foundError)
+		}
+
+		if err := input.ValidateTitleBaseSchemaType(note.Name()); err != nil {
+			foundError := fmt.Errorf(
+				"invalid base schema type found in '%s' file: %w", note.Name(), err,
 			)
 			foundErrors = append(foundErrors, foundError)
 		}
