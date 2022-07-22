@@ -51,9 +51,12 @@ All notes fall under a specific schema type:
 
 | Extension                                                            | Description                                                                                           |
 | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| [cSpell](https://github.com/streetsidesoftware/vscode-spell-checker) | • Spell checking                                                                                      |
+| [Emojisense](https://github.com/mattbiernervscode-emojisense)        | • `:emoji:` syntax autocomplete                                                                       |
+| [Markdown Emoji](https://github.com/mjbvz/vscode-markdown-emoji)     | • Markdown preview for `:emoji:` syntax                                                               |
+| [Markdown Image](https://github.com/imlinhanchao/vsc-markdown-image) | • Paste images directly in to markdown                                                                |
 | [Markdown Memo](https://github.com/svsool/memo)                      | • Creating and following backlinks between notes <br>• Renaming notes with automatic backlink updates |
 | [Reflow Markdown](https://github.com/marvhen/reflowmarkdown)         | • Quickly format text to a preferred line length                                                      |
-| [cSpell](https://github.com/streetsidesoftware/vscode-spell-checker) | • Spell checking                                                                                      |
 | [TODO Highlight](https://github.com/wayou/vscode-todo-highlight)     | • Highlight `todo-` annotations within notes                                                          |
 
 ### New Note Reminders
