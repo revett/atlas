@@ -57,7 +57,7 @@ All notes fall under a specific schema type:
 | [cSpell](https://github.com/streetsidesoftware/vscode-spell-checker) | • Spell checking                                                                                      |
 | [Emojisense](https://github.com/mattbiernervscode-emojisense)        | • `:emoji:` syntax autocomplete                                                                       |
 | [Markdown Emoji](https://github.com/mjbvz/vscode-markdown-emoji)     | • Markdown preview for `:emoji:` syntax                                                               |
-| [Markdown Image](https://github.com/imlinhanchao/vsc-markdown-image) | • Paste images directly in to markdown                                                                |
+| [Markdown Image](https://github.com/imlinhanchao/vsc-markdown-image) | • Paste images directly in to Markdown                                                                |
 | [Markdown Memo](https://github.com/svsool/memo)                      | • Creating and following backlinks between notes <br>• Renaming notes with automatic backlink updates |
 | [Reflow Markdown](https://github.com/marvhen/reflowmarkdown)         | • Quickly format text to a preferred line length                                                      |
 | [TODO Highlight](https://github.com/wayou/vscode-todo-highlight)     | • Highlight `todo-` annotations within notes                                                          |
@@ -66,7 +66,7 @@ All notes fall under a specific schema type:
 
 To avoid breaking the
 [flow of writing](<https://en.wikipedia.org/wiki/Flow_(psychology)>) a new note,
-I often will make use of the `todo-` annotation as a reminder to come back and
+I will often make use of the `todo-` annotation as a reminder to come back and
 create other notes. For example:
 
 ```
@@ -125,12 +125,12 @@ parts, three.
 
 ## Shell Completion
 
-Generate the shell completion script (Bash, fish, Zsh, PowerShell) using the
-CLI:
-
 ```
 sepias completion -h
 ```
+
+Generate the shell completion script (Bash, fish, Zsh, PowerShell) using the
+CLI.
 
 ## Doctor
 
@@ -139,3 +139,6 @@ Validate a local knowledge base by using the doctor command:
 ```
 sepias doctor
 ```
+
+By default, when creating a new note, the doctor command will be run
+automatically; this can be disabled by using the `--auto-doctor=false` flag.
