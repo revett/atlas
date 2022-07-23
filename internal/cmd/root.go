@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var autoDoctor bool
+var autoDoctor bool // nolint:gochecknoglobals
 
 // Root returns a cobra.Command type that acts as the entrypoint CLI command.
 func Root() *cobra.Command {
