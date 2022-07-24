@@ -20,6 +20,7 @@ knowledge management
 - Schema inspired by the [PARA method](https://fortelabs.co/blog/para)
 - Simplicity, originally started as a
   [bash script](https://github.com/revett/sepias/commit/ef85ce9d70593c8b3dfb8e1c2aab56300bbee959)
+- Templates for every note, via the note hierarchy
 
 ## Schema
 
