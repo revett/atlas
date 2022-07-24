@@ -1,7 +1,6 @@
 package input
 
 import (
-	"fmt"
 	"regexp"
 	"strings"
 
@@ -15,11 +14,11 @@ const exp = `^([a-z0-9]+(?:-[a-z0-9]+)*\.)+([a-z0-9]+(?:-[a-z0-9]+)*)$`
 func ValidateTitleFormat(title string) error {
 	ok, err := regexp.MatchString(exp, title)
 	if err != nil {
-		return fmt.Errorf("failed when matching string with regex: %w", err)
+		return ErrFailedRegexMatch
 	}
 
 	if !ok {
-		return fmt.Errorf("title does not match kebab-case dot notation: %s", title)
+		return ErrInvalidTitleFormat
 	}
 
 	return nil
@@ -30,8 +29,8 @@ func ValidateTitleFormat(title string) error {
 func ValidateTitleBaseSchemaType(t string) error {
 	parts := strings.Split(t, ".")
 
-	if len(parts) == 0 {
-		return fmt.Errorf("title does not have sufficient number of parts")
+	if len(parts) <= 1 {
+		return ErrInsufficientNumberOfTitlePartsErr
 	}
 
 	schemas := []string{hierarchy.ArchiveSchema}
@@ -43,5 +42,5 @@ func ValidateTitleBaseSchemaType(t string) error {
 		}
 	}
 
-	return fmt.Errorf("note uses an unrecognised base schema type: %s", parts[0])
+	return ErrUnrecognisedBaseSchemaTypeErr
 }
