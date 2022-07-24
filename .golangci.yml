@@ -15,6 +15,7 @@ linters:
     - maligned # The linter 'maligned' is deprecated (since v1.38.0) due to: The repository of the linter has been archived by the owner. Replaced by govet 'fieldalignment'.
     - nlreturn
     - scopelint # The linter 'scopelint' is deprecated (since v1.39.0) due to: The repository of the linter has been deprecated by the owner. Replaced by exportloopref.
+    - thelper
     - wsl
   enable-all: true
 linters-settings:
