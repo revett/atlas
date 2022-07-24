@@ -10,8 +10,8 @@ const (
 	// EntitySchema represents the "entity" schema type.
 	EntitySchema = "entity"
 
-	// InterviewSchema represents the "interview" schema type.
-	InterviewSchema = "interview"
+	// MeetingSchema represents the "meeting" schema type.
+	MeetingSchema = "meeting"
 
 	// ProjectSchema represents the "project" schema type.
 	ProjectSchema = "project"
@@ -31,7 +31,7 @@ func Schemas() []string {
 	return []string{
 		AreaSchema,
 		EntitySchema,
-		InterviewSchema,
+		MeetingSchema,
 		ProjectSchema,
 		ReviewSchema,
 		ScratchSchema,

@@ -95,7 +95,7 @@ func CreateNote(note Note) (string, error) {
 	return filepath, nil
 }
 
-func generateNoteTitle(note Note) (string, error) { // nolint:funlen
+func generateNoteTitle(note Note) (string, error) { // nolint:funlen,cyclop
 	var fn func() (string, error)
 
 	switch note.schema {
@@ -117,22 +117,27 @@ func generateNoteTitle(note Note) (string, error) { // nolint:funlen
 				},
 			)
 		}
-	case hierarchy.InterviewSchema:
+	case hierarchy.MeetingSchema:
 		fn = func() (string, error) {
 			input, err := readInput(
-				hierarchy.InterviewSchema,
+				hierarchy.MeetingSchema,
 				[]string{
-					"cultural",
-					"technical",
+					"design.2022-q3-review",
+					"interview.cultural",
+					"interview.technical",
 				},
 			)
 			if err != nil {
 				return "", err
 			}
 
-			return fmt.Sprintf(
-				"%s.%s", input, time.Now().Format("2006.01.02.1504"),
-			), nil
+			if input == "interview.cultural" || input == "interview.technical" {
+				return fmt.Sprintf(
+					"%s.%s", input, time.Now().Format("2006.01.02.1504"),
+				), nil
+			}
+
+			return input, nil
 		}
 	case hierarchy.ProjectSchema:
 		fn = func() (string, error) {

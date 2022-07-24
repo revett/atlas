@@ -32,7 +32,7 @@ All notes fall under a specific schema type:
 - **Area** - Sphere of activity with a standard to be maintained over time
   (taken from the [PARA method](https://fortelabs.co/blog/para))
 - **Entity** - Person, company, location etc
-- **Interview** - Notes from interviewing candidates
+- **Meeting** - Notes from meetings
 - **Project** - Notes linked to a goal, with a deadline (taken from the
   [PARA method](https://fortelabs.co/blog/para))
 - **Review** - Weekly journal for keeping track of progress and events
@@ -85,8 +85,9 @@ The following templates are required locally:
 ```
 ./templates/area.md
 ./templates/entity.md
-./templates/interview.cultural.md
-./templates/interview.technical.md
+./templates/meeting.md
+./templates/meeting.interview.cultural.md
+./templates/meeting.interview.technical.md
 ./templates/project.md
 ./templates/review.md
 ./templates/scratch.md
