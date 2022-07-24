@@ -14,7 +14,7 @@ var autoDoctor bool // nolint:gochecknoglobals
 // Root returns a cobra.Command type that acts as the entrypoint CLI command.
 func Root() *cobra.Command {
 	root := cobra.Command{
-		Use:       "sepias {area|entity|interview|project|review|scratch|system}",
+		Use:       "sepias {area|entity|meeting|project|review|scratch|system}",
 		Example:   "sepias scratch",
 		Short:     "Tool that @revett uses to manage his notes",
 		Args:      cobra.ExactValidArgs(1),
