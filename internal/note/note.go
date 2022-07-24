@@ -95,7 +95,7 @@ func CreateNote(note Note) (string, error) {
 	return filepath, nil
 }
 
-func generateNoteTitle(note Note) (string, error) { // nolint:funlen
+func generateNoteTitle(note Note) (string, error) { // nolint:funlen,cyclop
 	var fn func() (string, error)
 
 	switch note.schema {
