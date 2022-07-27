@@ -41,6 +41,10 @@ func doctorRunE(c *cobra.Command, args []string) error {
 
 	var foundErrors []error
 
+	log.Info().Msg("validating all note titles have valid format")
+	log.Info().
+		Msg("validating all note titles start with a valid base schema type")
+
 	for _, note := range notes {
 		withoutExtension := strings.TrimSuffix(
 			note.Name(), filepath.Ext(note.Name()),
@@ -59,6 +63,11 @@ func doctorRunE(c *cobra.Command, args []string) error {
 			)
 			foundErrors = append(foundErrors, foundError)
 		}
+	}
+
+	if err := base.ValidateTemplatesExist(); err != nil {
+		foundError := fmt.Errorf("missing template files: %w", err)
+		foundErrors = append(foundErrors, foundError)
 	}
 
 	log.Info().

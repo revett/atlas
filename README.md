@@ -4,14 +4,15 @@
 
 # Sepias
 
-[![Builds](https://img.shields.io/github/checks-status/revett/sepias/main?label=build&style=flat-square)](https://github.com/revett/sepias/actions?query=branch%3Amain)
 [![GoDoc](https://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](https://pkg.go.dev/github.com/revett/sepias)
 [![Go Report Card](https://goreportcard.com/badge/github.com/revett/sepias?style=flat-square)](https://goreportcard.com/report/github.com/revett/sepias)
 [![License](https://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://github.com/revett/sepias/blob/main/LICENSE)
 
-Minimalist CLI and VS Code workflow that I use to manage my notes / personal
-knowledge management
-([PKM](https://en.wikipedia.org/wiki/Personal_knowledge_management)).
+Sepias is an open-source, local-first, markdown-based, note-taking tool that is
+**built for those that enjoy using a CLI** rather than a standalone macOS app or
+VS Code extension. It's a personal knowledge management
+([PKM](https://en.wikipedia.org/wiki/Personal_knowledge_management)) solution
+built for developers who value simplicity, speed and structure.
 
 ## Design Principles
 
@@ -144,3 +145,12 @@ sepias doctor
 
 By default, when creating a new note, the doctor command will be run
 automatically; this can be disabled by using the `--auto-doctor=false` flag.
+
+## Credits
+
+- Inspiration from the Dendron [`README`](https://github.com/dendronhq/dendron)
+- Feature ideas for the [roadmap](https://github.com/revett/sepias/issues/15)
+  from [Dendron](https://github.com/dendronhq/dendron),
+  [Foam](https://github.com/foambubble/foam),
+  [Obsidian](https://github.com/obsidianmd) and
+  [RelaNote](https://relanote.com)
