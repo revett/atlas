@@ -6,6 +6,7 @@ import (
 	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/revett/sepias/internal/file"
 	"github.com/revett/sepias/internal/input"
 	"github.com/revett/sepias/internal/note/hierarchy"
 	"github.com/rs/zerolog/log"
@@ -56,8 +57,10 @@ func NewNote(schema string) (Note, error) {
 func CreateNote(note Note) (string, error) {
 	filepath := fmt.Sprintf("./%s.md", note.title)
 
-	if _, err := os.Stat(filepath); err == nil {
-		return "", fmt.Errorf("note already exists: %s", filepath)
+	if err := file.DirectoryOrFileExists(filepath); err == nil {
+		log.Warn().Str("path", filepath).Msg("note already exists")
+		log.Info().Msg("opening note")
+		return filepath, nil
 	}
 
 	header, err := generateFrontmatterHeader()

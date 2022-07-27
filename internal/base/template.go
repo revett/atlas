@@ -15,7 +15,9 @@ func ValidateTemplatesExist() error {
 	log.Info().Msg("validating template directory exists")
 
 	if err := file.DirectoryOrFileExists(templateDirectoryPath); err != nil {
-		return err
+		return fmt.Errorf(
+			"failed when checking if template directory exists: %w", err,
+		)
 	}
 
 	log.Info().Msg("validating required markdown templates exist")
@@ -24,7 +26,9 @@ func ValidateTemplatesExist() error {
 		p := fmt.Sprintf("%s/%s.md", templateDirectoryPath, t)
 
 		if err := file.DirectoryOrFileExists(p); err != nil {
-			return err
+			return fmt.Errorf(
+				"failed when checking if required template '%s' exists: %w", p, err,
+			)
 		}
 	}
 
