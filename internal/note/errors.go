@@ -3,7 +3,7 @@ package note
 const (
 	// ErrFindTemplatesReadDir is a sentinel error for when the reading of the
 	// templates directory fails.
-	ErrFindTemplatesReadDir Error = iota + 1
+	ErrFindTemplatesReadDir Error = iota
 
 	// ErrMissingTemplates is a sentinel error for when no valid files are
 	// found within the templates directory.

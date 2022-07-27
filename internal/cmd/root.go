@@ -6,6 +6,7 @@ import (
 
 	"github.com/revett/sepias/internal/note"
 	"github.com/revett/sepias/internal/note/hierarchy"
+	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 )
 
@@ -34,6 +35,7 @@ func Root() *cobra.Command {
 
 func rootRunE(c *cobra.Command, args []string) error {
 	if autoDoctor {
+		log.Info().Msg("--auto-doctor flag enabled")
 		doctor := Doctor()
 		if err := doctor.RunE(nil, nil); err != nil {
 			return fmt.Errorf("failed to run the doctor command before: %w", err)
