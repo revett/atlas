@@ -34,4 +34,4 @@ linters-settings:
       - id
 run:
   concurrency: 4
-  timeout: 30s
+  timeout: 60s
