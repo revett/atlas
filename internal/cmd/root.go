@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var autoDoctor bool // nolint:gochecknoglobals
+var autoDoctor bool //nolint:gochecknoglobals
 
 // Root returns a cobra.Command type that acts as the entrypoint CLI command.
 func Root() *cobra.Command {
@@ -52,7 +52,7 @@ func rootRunE(c *cobra.Command, args []string) error {
 		return fmt.Errorf("failed to create new note: %w", err)
 	}
 
-	err = exec.Command("code", fp).Run() // nolint:gosec
+	err = exec.Command("code", fp).Run() //nolint:gosec
 	if err != nil {
 		return fmt.Errorf("failed to open new note in vscode: %w", err)
 	}
