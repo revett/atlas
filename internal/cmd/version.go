@@ -15,7 +15,7 @@ func Version(version string) *cobra.Command {
 		DisableFlagsInUseLine: true,
 		Args:                  cobra.NoArgs,
 		Run: func(c *cobra.Command, args []string) {
-			fmt.Println( // nolint:forbidigo
+			fmt.Println( //nolint:forbidigo
 				strings.TrimSpace(version),
 			)
 		},

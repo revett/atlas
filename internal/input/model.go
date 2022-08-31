@@ -44,10 +44,10 @@ func (m Model) Init() tea.Cmd {
 }
 
 // Update implements the bubbletea.Model.Update() interface.
-func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) { // nolint:ireturn
+func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) { //nolint:ireturn
 	var cmd tea.Cmd
 
-	switch msg := msg.(type) { // nolint:gocritic
+	switch msg := msg.(type) { //nolint:gocritic
 	case tea.KeyMsg:
 		switch msg.Type {
 		case tea.KeyEnter, tea.KeyCtrlC, tea.KeyEsc:
