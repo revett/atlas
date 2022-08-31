@@ -78,7 +78,7 @@ func CreateNote(note Note) (string, error) {
 		return "", err
 	}
 
-	file, err := os.Create(filepath) // nolint:gosec
+	file, err := os.Create(filepath) //nolint:gosec
 	if err != nil {
 		return "", fmt.Errorf("unable to create new note file: %w", err)
 	}
@@ -98,7 +98,7 @@ func CreateNote(note Note) (string, error) {
 	return filepath, nil
 }
 
-func generateNoteTitle(note Note) (string, error) { // nolint:funlen,cyclop
+func generateNoteTitle(note Note) (string, error) { //nolint:funlen,cyclop
 	var fn func() (string, error)
 
 	switch note.schema {

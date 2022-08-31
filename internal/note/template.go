@@ -54,7 +54,7 @@ func findTemplate(title string) (string, error) {
 }
 
 func readTemplate(p string) (string, error) {
-	f, err := os.Open(p) // nolint:gosec
+	f, err := os.Open(p) //nolint:gosec
 	if err != nil {
 		return "", fmt.Errorf("failed to open template file: %w", err)
 	}

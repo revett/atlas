@@ -19,6 +19,10 @@ linters:
     - wsl
   enable-all: true
 linters-settings:
+  revive:
+    rules:
+      - name: package-comments
+        disabled: true
   varnamelen:
     ignore-names:
       - fn
