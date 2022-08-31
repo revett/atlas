@@ -49,47 +49,12 @@ user:
   [@svsool](https://github.com/svsool)
 - Web app
 
-### CLI
-
-1. Create note, with schema hierarchy autocomplete
-1. Knowledge base validation
-1. Share notes publicly
-1. Automatic note templating based on filename schema
-1. Hierarchies via flat file structure (e.g. `area.pkm.tools.md`)
-1. Front Matter metadata support for notes
-1. Orphaned notes analysis
-1. Missing backlink analysis
-1. Knowledge base JSON export
-
-### VS Code Memo Extension
-
-> _See [svsool/memo](https://github.com/svsool/memo) for a list of all
-> features._
-
-1. Create backlinks
-1. Backlink click-to-navigate (editor and preview)
-1. Embedded notes
-1. Backlinks panel
-1. Automatic backlink updates on file rename
-1. Backlink labelling
-1. Full backlink naming on filename clash
-
-#### Why Use an Extension?
+### Why Use an Extension?
 
 [Svyat Sobol (@svsool)](https://github.com/svsool) has done an incredible job
 with the extension; which provides all of the required core features. Therefore
 it seems logical to focus on additional features provided by the CLI and web app
 instead of duplicating effort.
-
-### Web App
-
-> _This is accessible via the user's local machine only._
-
-1. Note graph visualisation
-1. Schema hierarchy graph visualisation
-1. Statistics
-1. Rendered note view
-1. Web search
 
 ## Credits
 
