@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "embed"
+	"fmt"
 	"math/rand"
 	"os"
 	"time"
@@ -11,8 +12,14 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-//go:embed VERSION
-var version string
+var (
+	// BuildFlag allows for the output from the version command to have a prefix
+	// based on what is passed via ldflags when the CLI is built.
+	BuildFlag = "" //nolint:gochecknoglobals
+
+	//go:embed VERSION
+	version string
+)
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
@@ -27,10 +34,20 @@ func main() {
 	root.AddCommand(
 		cmd.Completion(),
 		cmd.Doctor(),
-		cmd.Version(version),
+		cmd.Version(
+			generateVersion(),
+		),
 	)
 
 	if err := root.Execute(); err != nil {
 		log.Fatal().Err(err).Send()
 	}
+}
+
+func generateVersion() string {
+	if BuildFlag == "" {
+		return version
+	}
+
+	return fmt.Sprintf("%s-%s", BuildFlag, version)
 }

@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestValidateTitleFormat(t *testing.T) { // nolint:funlen
+func TestValidateTitleFormat(t *testing.T) { //nolint:funlen
 	t.Parallel()
 
 	tests := map[string]struct {
@@ -101,7 +101,7 @@ func TestValidateTitleFormat(t *testing.T) { // nolint:funlen
 	}
 
 	for n, testCase := range tests {
-		tc := testCase // nolint:varnamelen
+		tc := testCase //nolint:varnamelen
 
 		t.Run(n, func(t *testing.T) {
 			t.Parallel()
@@ -152,7 +152,7 @@ func TestValidateTitleBaseSchemaType(t *testing.T) {
 	}
 
 	for n, testCase := range tests {
-		tc := testCase // nolint:varnamelen
+		tc := testCase //nolint:varnamelen
 
 		t.Run(n, func(t *testing.T) {
 			t.Parallel()
