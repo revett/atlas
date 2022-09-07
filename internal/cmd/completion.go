@@ -24,20 +24,24 @@ func Completion() *cobra.Command {
 func completionRunE(c *cobra.Command, args []string) error {
 	switch args[0] {
 	case "bash":
-		err := Root().GenBashCompletion(os.Stdout)
-		return fmt.Errorf("failed to generate bash completion: %w", err)
+		if err := Root().GenBashCompletion(os.Stdout); err != nil {
+			return fmt.Errorf("failed to generate bash completion: %w", err)
+		}
 	case "fish":
-		err := Root().GenFishCompletion(os.Stdout, true)
-		return fmt.Errorf("failed to generate fish completion: %w", err)
+		if err := Root().GenFishCompletion(os.Stdout, true); err != nil {
+			return fmt.Errorf("failed to generate fish completion: %w", err)
+		}
 	case "powershell":
-		err := Root().GenPowerShellCompletionWithDesc(os.Stdout)
-		return fmt.Errorf("failed to generate powershell completion: %w", err)
+		if err := Root().GenPowerShellCompletionWithDesc(os.Stdout); err != nil {
+			return fmt.Errorf("failed to generate powershell completion: %w", err)
+		}
 	case "zsh":
-		err := Root().GenZshCompletion(os.Stdout)
-		return fmt.Errorf("failed to generate zsh completion: %w", err)
-	default:
-		return nil
+		if err := Root().GenZshCompletion(os.Stdout); err != nil {
+			return fmt.Errorf("failed to generate zsh completion: %w", err)
+		}
 	}
+
+	return nil
 }
 
 func completionLong(rootName string) string {

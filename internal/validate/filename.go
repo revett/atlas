@@ -21,11 +21,11 @@ func NewFilenameValidator() filenameValidator { //nolint:revive
 
 // Validate implements the validate.Validator.Valid() interface. It carries out
 // a number of checks:
-// - If the file extension is correct
-// - Has a valid base schema (e.g. "area" from "area.language.go.error")
-// - If the filename matches a combined kebab-case dot notation
-//   (e.g. "area.languagego.error-handling.md")
-// - If the filename has the required number of parts (e.g. not "area.md").
+//   - If the file extension is correct
+//   - Has a valid base schema (e.g. "area" from "area.language.go.error")
+//   - If the filename matches a combined kebab-case dot notation
+//     (e.g. "area.languagego.error-handling.md")
+//   - If the filename has the required number of parts (e.g. not "area.md").
 func (f filenameValidator) Validate(filename string) []error {
 	var errs []error
 
