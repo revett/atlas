@@ -14,7 +14,6 @@ var template string
 // Generate returns a string repesentation of the Front Matter metadata block
 // to be included within a new note file.
 func Generate() (string, error) {
-	// TODO: add option to disable cspell.
 	d, err := language.Dictionary()
 	if err != nil {
 		return "", fmt.Errorf("unable to load dictionary from file: %w", err)
