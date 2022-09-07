@@ -3,11 +3,10 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"path/filepath"
-	"strings"
 
-	"github.com/revett/sepias/internal/base"
-	"github.com/revett/sepias/internal/input"
+	"github.com/revett/sepia/internal/base"
+	"github.com/revett/sepia/internal/input"
+	"github.com/revett/sepia/internal/metadata"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 )
@@ -32,34 +31,39 @@ func doctorRunE(c *cobra.Command, args []string) error {
 
 	log.Info().Str("path", path).Msg("validating knowledge base")
 
-	notes, err := base.Read(path)
+	files, err := base.Read(path)
 	if err != nil {
 		return fmt.Errorf("failed to read notes in knowledge base: %w", err)
 	}
 
-	log.Info().Int("count", len(notes)).Msgf("found %d notes", len(notes))
+	log.Info().Int("count", len(files)).Msgf("found %d notes", len(files))
 
 	var foundErrors []error
 
-	log.Info().Msg("validating all note titles have valid format")
-	log.Info().
-		Msg("validating all note titles start with a valid base schema type")
+	for _, file := range files {
+		title := file.Name()
 
-	for _, note := range notes {
-		withoutExtension := strings.TrimSuffix(
-			note.Name(), filepath.Ext(note.Name()),
-		)
+		if err := input.ValidateTitleFormat(title); err != nil {
+			foundError := fmt.Errorf("./%s: invalid note title: %w", title, err)
+			foundErrors = append(foundErrors, foundError)
+		}
 
-		if err := input.ValidateTitleFormat(withoutExtension); err != nil {
+		if err := input.ValidateTitleBaseSchemaType(title); err != nil {
+			foundError := fmt.Errorf("./%s: invalid base schema type: %w", title, err)
+			foundErrors = append(foundErrors, foundError)
+		}
+
+		metaFields, err := metadata.Parse(title)
+		if err != nil {
 			foundError := fmt.Errorf(
-				"invalid note title found in '%s' file: %w", note.Name(), err,
+				"./%s: unable to parse front matter metadata: %w", title, err,
 			)
 			foundErrors = append(foundErrors, foundError)
 		}
 
-		if err := input.ValidateTitleBaseSchemaType(note.Name()); err != nil {
+		if err := metaFields.Validate(); err != nil {
 			foundError := fmt.Errorf(
-				"invalid base schema type found in '%s' file: %w", note.Name(), err,
+				"./%s: invalid front matter metadata: %w", title, err,
 			)
 			foundErrors = append(foundErrors, foundError)
 		}
@@ -72,7 +76,7 @@ func doctorRunE(c *cobra.Command, args []string) error {
 
 	log.Info().
 		Int("count", len(foundErrors)).
-		Msgf("found %d validation errors", len(foundErrors))
+		Msgf("detected %d validation errors", len(foundErrors))
 
 	for _, foundError := range foundErrors {
 		log.Warn().Msg(foundError.Error())

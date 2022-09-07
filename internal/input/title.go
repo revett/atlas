@@ -1,18 +1,23 @@
 package input
 
 import (
+	"path/filepath"
 	"regexp"
 	"strings"
 
-	"github.com/revett/sepias/internal/note/hierarchy"
+	"github.com/revett/sepia/internal/schema"
 )
 
 const exp = `^([a-z0-9]+(?:-[a-z0-9]+)*\.)+([a-z0-9]+(?:-[a-z0-9]+)*)$`
 
 // ValidateTitleFormat checks that a given string matches a combined kebab-case
 // dot notation (e.g. area.foo.bar-123.baz).
-func ValidateTitleFormat(title string) error {
-	ok, err := regexp.MatchString(exp, title)
+func ValidateTitleFormat(t string) error {
+	withoutExtension := strings.TrimSuffix(
+		t, filepath.Ext(t),
+	)
+
+	ok, err := regexp.MatchString(exp, withoutExtension)
 	if err != nil {
 		return ErrFailedRegexMatch
 	}
@@ -33,8 +38,10 @@ func ValidateTitleBaseSchemaType(t string) error {
 		return ErrInsufficientNumberOfTitlePartsErr
 	}
 
-	schemas := []string{hierarchy.ArchiveSchema}
-	schemas = append(schemas, hierarchy.Schemas()...)
+	schemas := []string{
+		schema.ArchiveSchema,
+	}
+	schemas = append(schemas, schema.Schemas()...)
 
 	for _, s := range schemas {
 		if parts[0] == s {

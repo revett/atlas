@@ -1,4 +1,7 @@
-package hierarchy
+package schema
+
+// TODO: refactor to be types with .Stringer interface, as well as filename
+// generation func.
 
 const (
 	// ArchiveSchema represents the "archive" schema type.

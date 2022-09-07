@@ -3,7 +3,7 @@ package input_test
 import (
 	"testing"
 
-	"github.com/revett/sepias/internal/input"
+	"github.com/revett/sepia/internal/input"
 	"github.com/stretchr/testify/require"
 )
 
@@ -101,7 +101,7 @@ func TestValidateTitleFormat(t *testing.T) { //nolint:funlen
 	}
 
 	for n, testCase := range tests {
-		tc := testCase //nolint:varnamelen
+		tc := testCase
 
 		t.Run(n, func(t *testing.T) {
 			t.Parallel()
@@ -152,7 +152,7 @@ func TestValidateTitleBaseSchemaType(t *testing.T) {
 	}
 
 	for n, testCase := range tests {
-		tc := testCase //nolint:varnamelen
+		tc := testCase
 
 		t.Run(n, func(t *testing.T) {
 			t.Parallel()

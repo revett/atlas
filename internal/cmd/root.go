@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os/exec"
 
-	"github.com/revett/sepias/internal/note"
-	"github.com/revett/sepias/internal/note/hierarchy"
+	"github.com/revett/sepia/internal/note"
+	"github.com/revett/sepia/internal/schema"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 )
@@ -15,11 +15,11 @@ var autoDoctor bool //nolint:gochecknoglobals
 // Root returns a cobra.Command type that acts as the entrypoint CLI command.
 func Root() *cobra.Command {
 	root := cobra.Command{
-		Use:       "sepias {area|entity|meeting|project|review|scratch|system}",
-		Example:   "sepias scratch",
-		Short:     "Tool that @revett uses to manage his notes",
+		Use:       "sepia {area|entity|meeting|project|review|scratch|system}",
+		Example:   "sepia scratch",
+		Short:     "CLI focused personal knowledge management tool",
 		Args:      cobra.ExactValidArgs(1),
-		ValidArgs: hierarchy.Schemas(),
+		ValidArgs: schema.Schemas(),
 		RunE:      rootRunE,
 	}
 
@@ -34,25 +34,28 @@ func Root() *cobra.Command {
 }
 
 func rootRunE(c *cobra.Command, args []string) error {
+	schema := args[0]
+
 	if autoDoctor {
 		log.Info().Msg("--auto-doctor flag enabled")
-		doctor := Doctor()
-		if err := doctor.RunE(nil, nil); err != nil {
+
+		// TODO: refactor to use underlying validator rather than command itself
+		if err := Doctor().RunE(nil, nil); err != nil {
 			return fmt.Errorf("failed to run the doctor command before: %w", err)
 		}
 	}
 
-	n, err := note.NewNote(args[0])
+	n, err := note.NewNote(schema)
 	if err != nil {
 		return fmt.Errorf("failed to create new note type: %w", err)
 	}
 
-	fp, err := note.CreateNote(n)
+	filepath, err := n.WriteToDisk()
 	if err != nil {
 		return fmt.Errorf("failed to create new note: %w", err)
 	}
 
-	err = exec.Command("code", fp).Run() //nolint:gosec
+	err = exec.Command("code", filepath).Run() //nolint:gosec
 	if err != nil {
 		return fmt.Errorf("failed to open new note in vscode: %w", err)
 	}
