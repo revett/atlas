@@ -1,7 +1,7 @@
 build:
-	go build -ldflags="-X 'main.BuildFlag=local'" -o sepias
+	go build -ldflags="-X 'main.BuildFlag=local'" -o sepia
 
 install:
-	go build -o sepias
-	rm -f ~/go/bin/sepias
-	cp sepias ~/go/bin/
+	go build -o sepia
+	rm -f ~/go/bin/sepia
+	cp sepia ~/go/bin/

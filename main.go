@@ -1,4 +1,4 @@
-package main
+package main //nolint:revive
 
 import (
 	_ "embed"
@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/revett/sepias/internal/cmd"
+	"github.com/revett/sepia/internal/cmd"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )

@@ -24,14 +24,10 @@ linters:
     - wsl
   enable-all: true
 linters-settings:
-  revive:
-    rules:
-      - name: package-comments
-        disabled: true
   varnamelen:
     ignore-names:
-      - fn
       - id
+      - tc
 run:
   concurrency: 4
   timeout: 60s

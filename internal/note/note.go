@@ -1,74 +1,77 @@
 package note
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/revett/sepias/internal/file"
-	"github.com/revett/sepias/internal/input"
-	"github.com/revett/sepias/internal/note/hierarchy"
+	"github.com/revett/sepia/internal/file"
+	"github.com/revett/sepia/internal/input"
+	"github.com/revett/sepia/internal/metadata"
+	"github.com/revett/sepia/internal/schema"
+	"github.com/revett/sepia/internal/validate"
 	"github.com/rs/zerolog/log"
 )
 
 // Note holds configuration for a new note, as well as methods for creating it.
 type Note struct {
-	schema string
-	title  string
+	Filename string
 }
 
 // NewNote creates a new Note type, whilst also validating the schema argument
-// against known valid schemas and generates a title for the new note.
-func NewNote(schema string) (Note, error) {
+// against known valid schemas and generates a filename for the new note.
+func NewNote(noteSchema string) (Note, error) {
+	// TODO: refactor to remove notion of title vs filepath
+
 	valid := false
-	for _, e := range hierarchy.Schemas() {
-		if e == schema {
+	for _, e := range schema.Schemas() {
+		if e == noteSchema {
 			valid = true
 		}
 	}
 
 	if !valid {
-		return Note{}, fmt.Errorf("unknown schema: %s", schema)
+		return Note{}, fmt.Errorf("unknown schema: %s", noteSchema)
 	}
+
+	filename, err := generateNoteFilename(noteSchema)
+	if err != nil {
+		return Note{}, fmt.Errorf(
+			"failed to generate filename for new note: %w", err,
+		)
+	}
+
+	log.Info().Str("filename", filename).Msg("creating note")
 
 	note := Note{
-		schema: schema,
+		Filename: filename,
 	}
 
-	title, err := generateNoteTitle(note)
-	if err != nil {
-		return Note{}, fmt.Errorf("failed to generate title for new note: %w", err)
+	if errs := validate.NewFilenameValidator().Validate(note.Filename); errs != nil {
+		log.Info().Msgf("creating note: %s", filename)
+		return Note{}, fmt.Errorf("note filename validation failed: %v", errs)
 	}
-
-	title = fmt.Sprintf("%s.%s", schema, title)
-
-	err = input.ValidateTitleFormat(title)
-	if err != nil {
-		return Note{}, fmt.Errorf("invalid title format: %w", err)
-	}
-	note.title = title
 
 	return note, nil
 }
 
-// CreateNote checks that the new note does not already exist, then creates the
+// WriteToDisk checks that the new note does not already exist, then creates the
 // new note file, and appends contents to the file (header, template).
-func CreateNote(note Note) (string, error) {
-	filepath := fmt.Sprintf("./%s.md", note.title)
-
-	if err := file.DirectoryOrFileExists(filepath); err == nil {
-		log.Warn().Str("path", filepath).Msg("note already exists")
+func (n Note) WriteToDisk() (string, error) {
+	if err := file.DirectoryOrFileExists(n.Filename); err == nil {
+		log.Warn().Str("path", n.Filename).Msg("note already exists")
 		log.Info().Msg("opening note")
-		return filepath, nil
+		return n.Filename, nil
 	}
 
-	header, err := generateFrontmatterHeader()
+	header, err := metadata.Generate()
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("failed to generate metadata header: %w", err)
 	}
 
-	templatePath, err := findTemplate(note.title)
+	templatePath, err := findTemplate(n.Filename)
 	if err != nil {
 		return "", err
 	}
@@ -78,7 +81,7 @@ func CreateNote(note Note) (string, error) {
 		return "", err
 	}
 
-	file, err := os.Create(filepath) //nolint:gosec
+	file, err := os.Create(n.Filename)
 	if err != nil {
 		return "", fmt.Errorf("unable to create new note file: %w", err)
 	}
@@ -95,35 +98,37 @@ func CreateNote(note Note) (string, error) {
 		return "", fmt.Errorf("unable to write template to new note file: %w", err)
 	}
 
-	return filepath, nil
+	return n.Filename, nil
 }
 
-func generateNoteTitle(note Note) (string, error) { //nolint:funlen,cyclop
-	var fn func() (string, error)
+func generateNoteFilename(noteSchema string) (string, error) { //nolint:funlen
+	var genFunc func() (string, error)
 
-	switch note.schema {
-	case hierarchy.AreaSchema:
-		fn = func() (string, error) {
+	switch noteSchema {
+	case schema.AreaSchema:
+		genFunc = func() (string, error) {
 			return readInput(
-				hierarchy.AreaSchema,
+				schema.AreaSchema,
 				[]string{
 					"language.go.errors",
 				},
 			)
 		}
-	case hierarchy.EntitySchema:
-		fn = func() (string, error) {
+	case schema.EntitySchema:
+		genFunc = func() (string, error) {
 			return readInput(
-				hierarchy.EntitySchema,
+				schema.EntitySchema,
 				[]string{
 					"person.colleague.john-smith",
 				},
 			)
 		}
-	case hierarchy.MeetingSchema:
-		fn = func() (string, error) {
+	case schema.MeetingSchema:
+		genFunc = func() (string, error) {
+			now := time.Now().Format("2006.01.02.1504")
+
 			input, err := readInput(
-				hierarchy.MeetingSchema,
+				fmt.Sprintf("%s.%s", schema.MeetingSchema, now),
 				[]string{
 					"design.2022-q3-review",
 					"interview.cultural",
@@ -134,36 +139,30 @@ func generateNoteTitle(note Note) (string, error) { //nolint:funlen,cyclop
 				return "", err
 			}
 
-			if input == "interview.cultural" || input == "interview.technical" {
-				return fmt.Sprintf(
-					"%s.%s", input, time.Now().Format("2006.01.02.1504"),
-				), nil
-			}
-
-			return input, nil
+			return fmt.Sprintf("%s.%s", now, input), nil
 		}
-	case hierarchy.ProjectSchema:
-		fn = func() (string, error) {
+	case schema.ProjectSchema:
+		genFunc = func() (string, error) {
 			return readInput(
-				hierarchy.ProjectSchema,
+				schema.ProjectSchema,
 				[]string{
 					"video-app.mvp-features",
 				},
 			)
 		}
-	case hierarchy.ReviewSchema:
-		fn = func() (string, error) {
+	case schema.ReviewSchema:
+		genFunc = func() (string, error) {
 			y, w := time.Now().ISOWeek()
 			return fmt.Sprintf("%d.%d", y, w), nil
 		}
-	case hierarchy.ScratchSchema:
-		fn = func() (string, error) {
+	case schema.ScratchSchema:
+		genFunc = func() (string, error) {
 			return time.Now().Format("2006.01.02.150405"), nil
 		}
-	case hierarchy.SystemSchema:
-		fn = func() (string, error) {
+	case schema.SystemSchema:
+		genFunc = func() (string, error) {
 			return readInput(
-				hierarchy.SystemSchema,
+				schema.SystemSchema,
 				[]string{
 					"monthly-accounts",
 				},
@@ -171,7 +170,12 @@ func generateNoteTitle(note Note) (string, error) { //nolint:funlen,cyclop
 		}
 	}
 
-	return fn()
+	filename, err := genFunc()
+	if err != nil {
+		return "", fmt.Errorf("failed to generate filename: %w", err)
+	}
+
+	return fmt.Sprintf("%s.%s.md", noteSchema, filename), nil
 }
 
 func readInput(schema string, examples []string) (string, error) {
@@ -179,10 +183,21 @@ func readInput(schema string, examples []string) (string, error) {
 		input.NewModel(schema, examples),
 	)
 
-	m, err := p.StartReturningModel()
+	model, err := p.StartReturningModel()
 	if err != nil {
 		return "", fmt.Errorf("failed when starting tui model: %w", err)
 	}
 
-	return m.View(), nil
+	var returnValue input.ReturnValue
+
+	err = json.Unmarshal([]byte(model.View()), &returnValue)
+	if err != nil {
+		return "", fmt.Errorf(
+			"failed to json unmarshal filename return value: %w", err,
+		)
+	}
+
+	fmt.Printf(returnValue.Prompt) //nolint:forbidigo
+
+	return returnValue.Filename, nil
 }

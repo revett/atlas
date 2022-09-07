@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Fetch Main Version
-        run: echo "MAIN_VERSION=$(curl -s https://raw.githubusercontent.com/revett/sepias/main/VERSION)" >> $GITHUB_ENV
+        run: echo "MAIN_VERSION=$(curl -s https://raw.githubusercontent.com/revett/sepia/main/VERSION)" >> $GITHUB_ENV
       - name: Output Main Version
         run: echo "${{ env.MAIN_VERSION }}"
       - name: Get Branch Version
