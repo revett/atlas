@@ -5,8 +5,8 @@ import (
 	"os"
 
 	"github.com/revett/sepia/internal/base"
-	"github.com/revett/sepia/internal/input"
 	"github.com/revett/sepia/internal/metadata"
+	"github.com/revett/sepia/internal/validate"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 )
@@ -41,29 +41,26 @@ func doctorRunE(c *cobra.Command, args []string) error {
 	var foundErrors []error
 
 	for _, file := range files {
-		title := file.Name()
+		filename := file.Name()
 
-		if err := input.ValidateTitleFormat(title); err != nil {
-			foundError := fmt.Errorf("./%s: invalid note title: %w", title, err)
+		if errs := validate.NewFilenameValidator().Validate(filename); errs != nil {
+			foundError := fmt.Errorf(
+				"./%s: invalid note filename: %v", filename, errs,
+			)
 			foundErrors = append(foundErrors, foundError)
 		}
 
-		if err := input.ValidateTitleBaseSchemaType(title); err != nil {
-			foundError := fmt.Errorf("./%s: invalid base schema type: %w", title, err)
-			foundErrors = append(foundErrors, foundError)
-		}
-
-		metaFields, err := metadata.Parse(title)
+		metaFields, err := metadata.Parse(filename)
 		if err != nil {
 			foundError := fmt.Errorf(
-				"./%s: unable to parse front matter metadata: %w", title, err,
+				"./%s: unable to parse front matter metadata: %w", filename, err,
 			)
 			foundErrors = append(foundErrors, foundError)
 		}
 
 		if err := metaFields.Validate(); err != nil {
 			foundError := fmt.Errorf(
-				"./%s: invalid front matter metadata: %w", title, err,
+				"./%s: invalid front matter metadata: %w", filename, err,
 			)
 			foundErrors = append(foundErrors, foundError)
 		}

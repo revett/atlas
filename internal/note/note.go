@@ -49,9 +49,9 @@ func NewNote(noteSchema string) (Note, error) {
 		Filename: filename,
 	}
 
-	if err := validate.NewFilenameValidator().Validate(note.Filename); err != nil {
+	if errs := validate.NewFilenameValidator().Validate(note.Filename); errs != nil {
 		log.Info().Msgf("creating note: %s", filename)
-		return Note{}, fmt.Errorf("note filename validation failed: %v", err)
+		return Note{}, fmt.Errorf("note filename validation failed: %v", errs)
 	}
 
 	return note, nil
