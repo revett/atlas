@@ -9,7 +9,7 @@ require (
 	github.com/charmbracelet/lipgloss v0.6.0
 	github.com/rs/zerolog v1.28.0
 	github.com/spf13/cobra v1.5.0
-	github.com/stretchr/testify v1.8.0
+	github.com/stretchr/testify v1.8.1
 )
 
 require (
