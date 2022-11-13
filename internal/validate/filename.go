@@ -15,7 +15,7 @@ const (
 type filenameValidator struct{}
 
 // NewFilenameValidator returns a filenameValidator type.
-func NewFilenameValidator() filenameValidator { //nolint:revive
+func NewFilenameValidator() filenameValidator {
 	return filenameValidator{}
 }
 

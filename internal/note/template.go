@@ -11,6 +11,11 @@ import (
 
 const templatesDirectoryPath = "./templates/"
 
+func appendCodeSnippet(c string) string {
+	s := "## Code Snippet\n\n" + "```\n\n" + "```"
+	return fmt.Sprintf("%s\n%s", c, s)
+}
+
 func findTemplate(title string) (string, error) {
 	files, err := os.ReadDir(templatesDirectoryPath)
 	if err != nil {
