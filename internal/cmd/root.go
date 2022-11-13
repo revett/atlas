@@ -10,7 +10,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var autoDoctor bool //nolint:gochecknoglobals
+var (
+	autoDoctor  bool
+	codeSnippet bool
+)
 
 // Root returns a cobra.Command type that acts as the entrypoint CLI command.
 func Root() *cobra.Command {
@@ -23,11 +26,20 @@ func Root() *cobra.Command {
 		RunE:      rootRunE,
 	}
 
-	root.Flags().BoolVar(
+	root.Flags().BoolVarP(
 		&autoDoctor,
 		"auto-doctor",
+		"a",
 		true,
 		"Run the doctor command before creating a new note",
+	)
+
+	root.Flags().BoolVarP(
+		&codeSnippet,
+		"code-snippet",
+		"c",
+		false,
+		"Append a code block to the bottom of the new note",
 	)
 
 	return &root
@@ -45,18 +57,21 @@ func rootRunE(c *cobra.Command, args []string) error {
 		}
 	}
 
+	if codeSnippet {
+		log.Info().Msg("--code-snippet flag enabled")
+	}
+
 	n, err := note.NewNote(schema)
 	if err != nil {
 		return fmt.Errorf("failed to create new note type: %w", err)
 	}
 
-	filepath, err := n.WriteToDisk()
+	filepath, err := n.WriteToDisk(codeSnippet)
 	if err != nil {
 		return fmt.Errorf("failed to create new note: %w", err)
 	}
 
-	err = exec.Command("code", filepath).Run() //nolint:gosec
-	if err != nil {
+	if err := exec.Command("code", filepath).Run(); err != nil { //nolint:gosec
 		return fmt.Errorf("failed to open new note in vscode: %w", err)
 	}
 
