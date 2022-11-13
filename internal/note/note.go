@@ -58,7 +58,7 @@ func NewNote(noteSchema string) (Note, error) {
 
 // WriteToDisk checks that the new note does not already exist, then creates the
 // new note file, and appends contents to the file (header, template).
-func (n Note) WriteToDisk() (string, error) {
+func (n Note) WriteToDisk(codeSnippet bool) (string, error) {
 	if err := file.DirectoryOrFileExists(n.Filename); err == nil {
 		log.Warn().Str("path", n.Filename).Msg("note already exists")
 		log.Info().Msg("opening note")
@@ -90,10 +90,12 @@ func (n Note) WriteToDisk() (string, error) {
 		}
 	}()
 
-	c := fmt.Sprintf("%s\n%s", header, tmpl)
+	content := fmt.Sprintf("%s\n%s", header, tmpl)
+	if codeSnippet {
+		content = appendCodeSnippet(content)
+	}
 
-	_, err = file.WriteString(c)
-	if err != nil {
+	if _, err = file.WriteString(content); err != nil {
 		return "", fmt.Errorf("unable to write template to new note file: %w", err)
 	}
 
@@ -182,7 +184,7 @@ func readInput(schema string, examples []string) (string, error) {
 		input.NewModel(schema, examples),
 	)
 
-	model, err := p.StartReturningModel()
+	model, err := p.Run()
 	if err != nil {
 		return "", fmt.Errorf("failed when starting tui model: %w", err)
 	}
