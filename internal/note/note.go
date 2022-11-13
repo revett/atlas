@@ -184,7 +184,7 @@ func readInput(schema string, examples []string) (string, error) {
 		input.NewModel(schema, examples),
 	)
 
-	model, err := p.StartReturningModel()
+	model, err := p.Run()
 	if err != nil {
 		return "", fmt.Errorf("failed when starting tui model: %w", err)
 	}

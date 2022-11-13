@@ -21,9 +21,11 @@ func Root() *cobra.Command {
 		Use:       "sepia {area|entity|meeting|project|review|scratch|system}",
 		Example:   "sepia scratch",
 		Short:     "CLI focused personal knowledge management tool",
-		Args:      cobra.ExactValidArgs(1),
 		ValidArgs: schema.Schemas(),
 		RunE:      rootRunE,
+		Args: cobra.MatchAll(
+			cobra.ExactArgs(1), cobra.OnlyValidArgs,
+		),
 	}
 
 	root.Flags().BoolVarP(

@@ -15,9 +15,11 @@ func Completion() *cobra.Command {
 		Short:                 "Generate shell completion script",
 		Long:                  completionLong(Root().Name()),
 		DisableFlagsInUseLine: true,
-		Args:                  cobra.ExactValidArgs(1),
 		ValidArgs:             []string{"bash", "fish", "powershell", "zsh"},
 		RunE:                  completionRunE,
+		Args: cobra.MatchAll(
+			cobra.ExactArgs(1), cobra.OnlyValidArgs,
+		),
 	}
 }
 
