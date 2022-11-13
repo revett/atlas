@@ -1,4 +1,4 @@
-package main //nolint:revive
+package main
 
 import (
 	_ "embed"
