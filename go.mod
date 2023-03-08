@@ -1,4 +1,4 @@
-module github.com/revett/sepia
+module github.com/revett/atlas
 
 go 1.17
 

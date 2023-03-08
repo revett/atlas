@@ -1,7 +1,7 @@
 build:
-	go build -ldflags="-X 'main.BuildFlag=local'" -o sepia
+	go build -ldflags="-X 'main.BuildFlag=local'" -o atlas
 
 install:
-	go build -o sepia
-	rm -f ~/go/bin/sepia
-	cp sepia ~/go/bin/
+	go build -o atlas
+	rm -f ~/go/bin/atlas
+	cp atlas ~/go/bin/

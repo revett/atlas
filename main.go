@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/revett/sepia/internal/cmd"
+	"github.com/revett/atlas/internal/cmd"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )

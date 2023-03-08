@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/revett/sepia/internal/schema"
+	"github.com/revett/atlas/internal/schema"
 )
 
 const (

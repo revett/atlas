@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os/exec"
 
-	"github.com/revett/sepia/internal/note"
-	"github.com/revett/sepia/internal/schema"
+	"github.com/revett/atlas/internal/note"
+	"github.com/revett/atlas/internal/schema"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 )
@@ -18,8 +18,8 @@ var (
 // Root returns a cobra.Command type that acts as the entrypoint CLI command.
 func Root() *cobra.Command {
 	root := cobra.Command{
-		Use:       "sepia {area|entity|meeting|project|review|scratch|system}",
-		Example:   "sepia scratch",
+		Use:       "atlas {area|entity|meeting|project|review|scratch|system}",
+		Example:   "atlas scratch",
 		Short:     "CLI focused personal knowledge management tool",
 		ValidArgs: schema.Schemas(),
 		RunE:      rootRunE,

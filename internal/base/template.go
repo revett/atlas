@@ -3,7 +3,7 @@ package base
 import (
 	"fmt"
 
-	"github.com/revett/sepia/internal/file"
+	"github.com/revett/atlas/internal/file"
 )
 
 const templateDirectoryPath = "./templates"

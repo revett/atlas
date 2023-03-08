@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/revett/sepia/internal/base"
-	"github.com/revett/sepia/internal/metadata"
-	"github.com/revett/sepia/internal/validate"
+	"github.com/revett/atlas/internal/base"
+	"github.com/revett/atlas/internal/metadata"
+	"github.com/revett/atlas/internal/validate"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 )
