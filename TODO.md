@@ -1,6 +1,6 @@
-- Convert to full TUI charmbracelet/bubbletea app
+- [ ] Convert to full TUI charmbracelet/bubbletea app
   - https://github.com/charmbracelet/bubbletea
-- Release v0.1.0 via GoReleaser and Homebrew
+- [ ] Release v0.1.0 via GoReleaser and Homebrew
   - https://goreleaser.com/customization/homebrew/
-- Improve developer experience by having ephemeral knowledge base locally
+- [ ] Improve developer experience by having ephemeral knowledge base locally
   - https://github.com/revett/dotfiles/blob/main/docker/Dockerfile.go
