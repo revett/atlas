@@ -1,25 +1,22 @@
 package main
 
 import (
+	"context"
 	_ "embed"
-	"fmt"
 	"math/rand"
 	"os"
 	"time"
 
 	"github.com/revett/atlas/internal/cmd"
+	"github.com/revett/atlas/internal/cmdv2"
+	"github.com/revett/atlas/internal/config"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
+	"github.com/spf13/cobra"
 )
 
-var (
-	// BuildFlag allows for the output from the version command to have a prefix
-	// based on what is passed via ldflags when the CLI is built.
-	BuildFlag = "" //nolint:gochecknoglobals
-
-	//go:embed VERSION
-	version string
-)
+//go:embed VERSION
+var version string
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
@@ -31,23 +28,25 @@ func main() {
 	)
 
 	root := cmd.Root()
+
+	// Commands from cmd package (v1).
 	root.AddCommand(
 		cmd.Completion(),
 		cmd.Doctor(),
-		cmd.Version(
-			generateVersion(),
-		),
 	)
 
-	if err := root.Execute(); err != nil {
+	// Commands from cmdv2 package.
+	commands := []*cobra.Command{}
+	for _, command := range cmdv2.RegisteredCommands() {
+		commands = append(commands, command.Command())
+	}
+	root.AddCommand(commands...)
+
+	ctx := context.WithValue(
+		context.Background(), config.ContextConfigKey, config.NewConfig(version),
+	)
+
+	if err := root.ExecuteContext(ctx); err != nil {
 		log.Fatal().Err(err).Send()
 	}
-}
-
-func generateVersion() string {
-	if BuildFlag == "" {
-		return version
-	}
-
-	return fmt.Sprintf("%s-%s", BuildFlag, version)
 }
