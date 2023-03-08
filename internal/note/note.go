@@ -7,11 +7,11 @@ import (
 	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/revett/sepia/internal/file"
-	"github.com/revett/sepia/internal/input"
-	"github.com/revett/sepia/internal/metadata"
-	"github.com/revett/sepia/internal/schema"
-	"github.com/revett/sepia/internal/validate"
+	"github.com/revett/atlas/internal/file"
+	"github.com/revett/atlas/internal/input"
+	"github.com/revett/atlas/internal/metadata"
+	"github.com/revett/atlas/internal/schema"
+	"github.com/revett/atlas/internal/validate"
 	"github.com/rs/zerolog/log"
 )
 

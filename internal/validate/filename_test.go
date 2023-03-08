@@ -3,7 +3,7 @@ package validate_test
 import (
 	"testing"
 
-	"github.com/revett/sepia/internal/validate"
+	"github.com/revett/atlas/internal/validate"
 	"github.com/stretchr/testify/require"
 )
 

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/revett/sepia/internal/language"
+	"github.com/revett/atlas/internal/language"
 )
 
 //go:embed template.md
