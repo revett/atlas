@@ -21,7 +21,7 @@ future updates.
 
 ## Roadmap
 
-🗂 See [Projects](https://github.com/users/revett/projects/1).
+🗂 See [TODO.md](https://github.com/revett/atlas/blob/main/TODO.md).
 
 ## Why?
 
