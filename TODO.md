@@ -15,10 +15,14 @@
   - https://github.com/revett/dotfiles/blob/main/docker/Dockerfile.go
 - [ ] Refactor `note.NewNote()`
 - [ ] Add autocomplete to new note CLI command
-- [ ] Improve the word list used for note slugs
 - [ ] Command to convert note from base type A to base type B, e.g. `scratch` to `meeting`
 - [ ] Command to quickly archive/unarchive a note
+- [ ] Check that no other notes with the same ID exist
+- [ ] Validate and fix old note ID's that weren't human-readable
 
 # ✅ Completed
 
+> Most recent at the top.
+
+- [x] Improve the word list used for note IDs
 - [x] Remove `review` as note base type

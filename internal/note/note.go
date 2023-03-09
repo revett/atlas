@@ -65,11 +65,6 @@ func (n Note) WriteToDisk(codeSnippet bool) (string, error) {
 		return n.Filename, nil
 	}
 
-	header, err := metadata.Generate()
-	if err != nil {
-		return "", fmt.Errorf("failed to generate metadata header: %w", err)
-	}
-
 	templatePath, err := findTemplate(n.Filename)
 	if err != nil {
 		return "", err
@@ -90,7 +85,7 @@ func (n Note) WriteToDisk(codeSnippet bool) (string, error) {
 		}
 	}()
 
-	content := fmt.Sprintf("%s\n%s", header, tmpl)
+	content := fmt.Sprintf("%s\n%s", metadata.Generate(), tmpl)
 	if codeSnippet {
 		content = appendCodeSnippet(content)
 	}
