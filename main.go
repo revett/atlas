@@ -3,9 +3,7 @@ package main
 import (
 	"context"
 	_ "embed"
-	"math/rand"
 	"os"
-	"time"
 
 	"github.com/revett/atlas/internal/cmd"
 	"github.com/revett/atlas/internal/cmdv2"
@@ -19,8 +17,6 @@ import (
 var version string
 
 func main() {
-	rand.Seed(time.Now().UnixNano())
-
 	log.Logger = log.Output(
 		zerolog.ConsoleWriter{
 			Out: os.Stdout,
