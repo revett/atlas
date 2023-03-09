@@ -55,6 +55,10 @@ Atlas is made up of three parts, each providing different features for the user:
 which provides all the required core features. Therefore, it seemed logical to focus on additional
 features provided by the CLI and web app instead of duplicating effort.
 
+## FAQ
+
+📘 Nothing here yet.
+
 ## Credits
 
 - Inspiration from the Dendron [README](https://github.com/dendronhq/dendron)
