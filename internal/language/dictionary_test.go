@@ -42,8 +42,7 @@ func TestAnimals(t *testing.T) {
 		t.Parallel()
 
 		animals := language.Animals()
-		unique := lo.Uniq(animals)
-		require.Equal(t, len(animals), len(unique))
+		require.ElementsMatch(t, animals, lo.Uniq(animals))
 	})
 }
 
@@ -68,8 +67,7 @@ func TestColors(t *testing.T) {
 		t.Parallel()
 
 		colors := language.Colors()
-		unique := lo.Uniq(colors)
-		require.Equal(t, len(colors), len(unique))
+		require.ElementsMatch(t, colors, lo.Uniq(colors))
 	})
 }
 
@@ -94,7 +92,6 @@ func TestEmotions(t *testing.T) {
 		t.Parallel()
 
 		emotions := language.Emotions()
-		unique := lo.Uniq(emotions)
-		require.Equal(t, len(emotions), len(unique))
+		require.ElementsMatch(t, emotions, lo.Uniq(emotions))
 	})
 }
