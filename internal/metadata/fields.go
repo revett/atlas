@@ -2,16 +2,16 @@ package metadata
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 )
 
 const (
-	idFieldChunks        = 4
-	idFieldCommentSuffix = " // cspell:disable-line"
+	minimumIDParts  = 3
+	idCommentSuffix = " // cspell:disable-line"
 )
 
-// Fields are the different values within the Front Matter block at the top of
-// any note.
+// Fields are the different values within the Front Matter block at the top of any note.
 type Fields struct {
 	ID      string `yaml:"id"`
 	Created string `yaml:"created"`
@@ -19,22 +19,19 @@ type Fields struct {
 
 // Validate checks that the values within the Front Matter metadata block valid.
 func (f Fields) Validate() error {
-	if !strings.HasSuffix(f.ID, idFieldCommentSuffix) {
-		return fmt.Errorf(
-			"id field '%s' does not have required suffix: '%s'",
-			f.ID,
-			idFieldCommentSuffix,
-		)
+	if !strings.HasSuffix(f.ID, idCommentSuffix) {
+		return fmt.Errorf("id field '%s' does not have required suffix: '%s'", f.ID, idCommentSuffix)
 	}
 
-	idWithoutComment := strings.Replace(f.ID, idFieldCommentSuffix, "", 1)
+	idWithoutComment := strings.Replace(f.ID, idCommentSuffix, "", 1)
 
-	if chunks := strings.Split(
-		idWithoutComment, "-",
-	); len(chunks) != idFieldChunks {
-		return fmt.Errorf(
-			"id field '%s' should have format: 'a-b-c-d'", idWithoutComment,
-		)
+	if parts := strings.Split(idWithoutComment, "-"); len(parts) < minimumIDParts {
+		return fmt.Errorf("id field '%s' must have at least %d parts", idWithoutComment, minimumIDParts)
+	}
+
+	kebabCasePattern := regexp.MustCompile(`^[a-z]+(-[a-z]+)*$`)
+	if !kebabCasePattern.MatchString(idWithoutComment) {
+		return fmt.Errorf("id field '%s' must use kebab case format", idWithoutComment)
 	}
 
 	return nil
