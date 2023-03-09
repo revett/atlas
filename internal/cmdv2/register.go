@@ -1,6 +1,8 @@
 package cmdv2
 
-import "fmt"
+import (
+	"fmt"
+)
 
 var registeredCommands = []Command{}
 

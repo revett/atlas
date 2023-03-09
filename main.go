@@ -31,7 +31,6 @@ func main() {
 
 	// Commands from cmd package (v1).
 	root.AddCommand(
-		cmd.Completion(),
 		cmd.Doctor(),
 	)
 

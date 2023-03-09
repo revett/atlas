@@ -12,6 +12,7 @@ func init() {
 	RegisterCommand(Version{})
 }
 
+// Version is a CLI command that outputs the current version of the CLI.
 type Version struct {
 	config config.Config
 }
@@ -51,7 +52,7 @@ func (v *Version) runE(c *cobra.Command, args []string) error {
 	v.config = cfg
 
 	if _, err := tea.NewProgram(v).Run(); err != nil {
-		return fmt.Errorf("running tui program: %w", err)
+		return fmt.Errorf("running version cli command: %w", err)
 	}
 
 	return nil
