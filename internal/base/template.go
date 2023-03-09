@@ -38,7 +38,6 @@ func requiredTemplates() []string {
 		"meeting.interview.cultural",
 		"meeting.interview.technical",
 		"project",
-		"review",
 		"scratch",
 		"system",
 	}
