@@ -1,3 +1,5 @@
+# ⏳ Backlog
+
 - [ ] Convert to full TUI charmbracelet/bubbletea app
   - https://github.com/charmbracelet/bubbletea
 - [ ] Release v0.1.0 via GoReleaser and Homebrew
@@ -14,5 +16,9 @@
 - [ ] Refactor `note.NewNote()`
 - [ ] Add autocomplete to new note CLI command
 - [ ] Improve the word list used for note slugs
-- [ ] Remove `review` as note base type
 - [ ] Command to convert note from base type A to base type B, e.g. `scratch` to `meeting`
+- [ ] Command to quickly archive/unarchive a note
+
+# ✅ Completed
+
+- [x] Remove `review` as note base type

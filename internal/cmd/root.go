@@ -18,7 +18,7 @@ var (
 // Root returns a cobra.Command type that acts as the entrypoint CLI command.
 func Root() *cobra.Command {
 	root := cobra.Command{
-		Use:       "atlas {area|entity|meeting|project|review|scratch|system}",
+		Use:       "atlas {area|entity|meeting|project|scratch|system}",
 		Example:   "atlas scratch",
 		Short:     "CLI focused personal knowledge management tool",
 		ValidArgs: schema.Schemas(),

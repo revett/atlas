@@ -115,6 +115,7 @@ func generateNoteFilename(noteSchema string) (string, error) { //nolint:funlen
 				},
 			)
 		}
+
 	case schema.EntitySchema:
 		genFunc = func() (string, error) {
 			return readInput(
@@ -124,6 +125,7 @@ func generateNoteFilename(noteSchema string) (string, error) { //nolint:funlen
 				},
 			)
 		}
+
 	case schema.MeetingSchema:
 		genFunc = func() (string, error) {
 			now := time.Now().Format("2006.01.02.1504")
@@ -142,6 +144,7 @@ func generateNoteFilename(noteSchema string) (string, error) { //nolint:funlen
 
 			return fmt.Sprintf("%s.%s", now, input), nil
 		}
+
 	case schema.ProjectSchema:
 		genFunc = func() (string, error) {
 			return readInput(
@@ -151,15 +154,12 @@ func generateNoteFilename(noteSchema string) (string, error) { //nolint:funlen
 				},
 			)
 		}
-	case schema.ReviewSchema:
-		genFunc = func() (string, error) {
-			y, w := time.Now().ISOWeek()
-			return fmt.Sprintf("%d.%d", y, w), nil
-		}
+
 	case schema.ScratchSchema:
 		genFunc = func() (string, error) {
 			return time.Now().Format("2006.01.02.150405"), nil
 		}
+
 	case schema.SystemSchema:
 		genFunc = func() (string, error) {
 			return readInput(

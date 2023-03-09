@@ -21,7 +21,7 @@ func Test_filenameValidator_Validate(t *testing.T) { //nolint:funlen
 			input: "area.language.go.error-handling.md",
 		},
 		"SuccessNumeric": {
-			input: "review.2022.36.md",
+			input: "area.2022.36.md",
 		},
 		"SuccessNumericWithDashes": {
 			input: "scratch.2022.05.18.13-25-27.md",
@@ -40,9 +40,6 @@ func Test_filenameValidator_Validate(t *testing.T) { //nolint:funlen
 		},
 		"SuccessProjectSchema": {
 			input: "project.video-app.md",
-		},
-		"SuccessReviewSchema": {
-			input: "review.2022.52.md",
 		},
 		"SuccessScratchSchema": {
 			input: "scratch.2022.05.18.132527.md",
@@ -103,7 +100,7 @@ func Test_filenameValidator_Validate(t *testing.T) { //nolint:funlen
 			},
 		},
 		"ErrorMissingFileExtension": {
-			input: "review.2022.36",
+			input: "area.2022.36",
 			errs: []error{
 				validate.ErrMissingMarkdownFileExtension,
 				validate.ErrInvalidFilenameFormat,

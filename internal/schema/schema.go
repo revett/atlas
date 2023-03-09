@@ -4,29 +4,13 @@ package schema
 // generation func.
 
 const (
-	// ArchiveSchema represents the "archive" schema type.
 	ArchiveSchema = "archive"
-
-	// AreaSchema represents the "area" schema type.
-	AreaSchema = "area"
-
-	// EntitySchema represents the "entity" schema type.
-	EntitySchema = "entity"
-
-	// MeetingSchema represents the "meeting" schema type.
+	AreaSchema    = "area"
+	EntitySchema  = "entity"
 	MeetingSchema = "meeting"
-
-	// ProjectSchema represents the "project" schema type.
 	ProjectSchema = "project"
-
-	// ReviewSchema represents the "review" schema type.
-	ReviewSchema = "review"
-
-	// ScratchSchema represents the "scratch" schema type.
 	ScratchSchema = "scratch"
-
-	// SystemSchema represents the "system" schema type.
-	SystemSchema = "system"
+	SystemSchema  = "system"
 )
 
 // Schemas returns a slice of all valid known schema types.
@@ -36,7 +20,6 @@ func Schemas() []string {
 		EntitySchema,
 		MeetingSchema,
 		ProjectSchema,
-		ReviewSchema,
 		ScratchSchema,
 		SystemSchema,
 	}
