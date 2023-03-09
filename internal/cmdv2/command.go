@@ -30,5 +30,6 @@ type (
 )
 
 const (
-	CommandTypeVersion CommandType = "version"
+	CommandTypeCompletion CommandType = "completion"
+	CommandTypeVersion    CommandType = "version"
 )
