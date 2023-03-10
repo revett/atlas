@@ -11,18 +11,21 @@
   - https://github.com/PierreMarchand20/asciinema_automation
   - https://github.com/paxtonhare/demo-magic
   - https://gabygoldberg.medium.com/the-building-in-public-how-to-guide-219d417f00c1
-- [ ] Improve developer experience by having ephemeral knowledge base locally
-  - https://github.com/revett/dotfiles/blob/main/docker/Dockerfile.go
 - [ ] Refactor `note.NewNote()`
 - [ ] Add autocomplete to new note CLI command
 - [ ] Command to convert note from base type A to base type B, e.g. `scratch` to `meeting`
 - [ ] Command to quickly archive/unarchive a note
 - [ ] Check that no other notes with the same ID exist
 - [ ] Validate and fix old note ID's that weren't human-readable
+- [ ] Include configuration option for root path that allows `atlas` to be run from anywhere
+- [ ] Write documentation on contributing
+- [ ] Add live reload within local development container
+  - https://github.com/cosmtrek/air
 
 # ✅ Completed
 
 > Most recent at the top.
 
-- [x] Improve the word list used for note IDs
+- [x] Improve developer experience by having ephemeral knowledge base locally
+- [x] Improve the word list used for note
 - [x] Remove `review` as note base type
