@@ -28,7 +28,7 @@
 
 > Most recent at the top.
 
-- [x] Include configuration option for root path that allows `atlas` to be run from anywhere
+- [x] Include configuration file with root path value that allows `atlas` to be run from anywhere
 - [x] Improve developer experience by having ephemeral knowledge base locally
 - [x] Improve the word list used for note
 - [x] Remove `review` as note base type
