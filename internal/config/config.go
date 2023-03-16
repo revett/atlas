@@ -10,7 +10,7 @@ import (
 
 // Config stores configuration required by the CLI.
 type Config struct {
-	Path    string `mapstructure:"path" validate:"required,dir"`
+	Path    string `validate:"required,dir"`
 	Version string
 }
 
