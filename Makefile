@@ -23,6 +23,6 @@ docker-build-local-development-image:
 		./docker
 
 # Install the CLI locally.
-install-cli-locally: build
+install-cli-locally: build-cli
 	rm -f ~/go/bin/atlas
 	cp atlas ~/go/bin/

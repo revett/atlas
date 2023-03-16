@@ -17,15 +17,18 @@
 - [ ] Command to quickly archive/unarchive a note
 - [ ] Check that no other notes with the same ID exist
 - [ ] Validate and fix old note ID's that weren't human-readable
-- [ ] Include configuration option for root path that allows `atlas` to be run from anywhere
 - [ ] Write documentation on contributing
 - [ ] Add live reload within local development container
   - https://github.com/cosmtrek/air
+- [ ] Add command to reset IDs
+- [ ] Create `atlas init` command
+- [ ] Use `path` config value when creating new notes etc
 
 # ✅ Completed
 
 > Most recent at the top.
 
+- [x] Include configuration file with root path value that allows `atlas` to be run from anywhere
 - [x] Improve developer experience by having ephemeral knowledge base locally
 - [x] Improve the word list used for note
 - [x] Remove `review` as note base type

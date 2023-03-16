@@ -23,6 +23,11 @@ func main() {
 		},
 	)
 
+	cfg, err := config.NewConfig(version)
+	if err != nil {
+		log.Fatal().Err(err).Send()
+	}
+
 	root := cmd.Root()
 
 	// Commands from cmd package (v1).
@@ -38,7 +43,7 @@ func main() {
 	root.AddCommand(commands...)
 
 	ctx := context.WithValue(
-		context.Background(), config.ContextConfigKey, config.NewConfig(version),
+		context.Background(), config.ContextConfigKey, cfg,
 	)
 
 	if err := root.ExecuteContext(ctx); err != nil {
