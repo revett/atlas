@@ -22,3 +22,6 @@ RUN mkdir -p ~/.config && \
 
 # Disable the [battery] starship configuration as not supported by container.
 RUN sed -i '/\[battery\]/,+1 d' ~/.config/starship.toml
+
+# Create .atlas-notes.yml config
+RUN echo "path: /root/notes" > /root/.atlas-notes.yml
