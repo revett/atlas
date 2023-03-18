@@ -22,12 +22,14 @@
   - https://github.com/cosmtrek/air
 - [ ] Add command to reset IDs
 - [ ] Create `atlas init` command
-- [ ] Make templates optional in validation
+- [ ] Add validation for hanging templates
 
 # ✅ Completed
 
 > Most recent at the top.
 
+- [x] Make templates optional in validation
+- [x] Add install and usage documentation in README
 - [x] Use `path` config value when creating new notes etc
 - [x] Include configuration file with root path value that allows `atlas` to be run from anywhere
 - [x] Improve developer experience by having ephemeral knowledge base locally
