@@ -16,8 +16,67 @@ developers who value simplicity, speed and consistent hierarchical note structur
 
 ## Install
 
-📦 The project is yet to make the `v1.0.0` release; please watch the GitHub repo (top-right) for
-future updates.
+```bash
+git clone git@github.com:revett/atlas.git
+```
+
+```
+cd atlas/
+```
+
+```
+make install-cli-locally
+```
+
+```
+echo "path: ~/notes" > ~/.atlas-notes.yml
+```
+
+## Usage
+
+All notes in Atlas must use a base type, from the following:
+
+- `area`
+- `entity`
+- `meeting`
+- `project`
+- `scratch`
+- `system`
+
+```bash
+atlas {type}
+```
+
+```bash
+atlas scratch
+```
+
+### Flags
+
+```bash
+# Before creating the new note, run the doctor command.
+atlas {type} --auto-doctor
+
+# Disable validation.
+atlas {type} --auto-doctor=false
+```
+
+```bash
+# Append a code snippet Markdown section to the note.
+atlas {type} --code-snippet
+```
+
+### Doctor
+
+```bash
+atlas doctor
+```
+
+### Shell Completion
+
+```bash
+atlas completion -h
+```
 
 ## Roadmap
 
