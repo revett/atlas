@@ -46,7 +46,7 @@ func NewNote(noteSchema string) (Note, error) {
 		)
 	}
 
-	log.Info().Str("filename", filename).Msg("creating note")
+	log.Info().Str("filename", filename).Msg("new note")
 
 	note := Note{
 		Filename: filename,
@@ -65,6 +65,8 @@ func (n Note) WriteToDisk(cfg config.Config, codeSnippet bool) (string, error) {
 	notePath := filepath.ToSlash(
 		path.Join(cfg.Path, n.Filename),
 	)
+
+	log.Info().Str("path", notePath).Msg("writing to knowledge base")
 
 	if err := file.DirectoryOrFileExists(notePath); err == nil {
 		log.Warn().Str("path", notePath).Msg("note already exists")
