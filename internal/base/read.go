@@ -12,7 +12,7 @@ import (
 func Read(path string) ([]fs.DirEntry, error) {
 	dirEntries, err := os.ReadDir(path)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read directory at '%s': %w", path, err)
+		return nil, fmt.Errorf("reading directory at '%s': %w", path, err)
 	}
 
 	notes := []fs.DirEntry{}

@@ -2,9 +2,9 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/revett/atlas/internal/base"
+	"github.com/revett/atlas/internal/config"
 	"github.com/revett/atlas/internal/metadata"
 	"github.com/revett/atlas/internal/validate"
 	"github.com/rs/zerolog/log"
@@ -24,16 +24,16 @@ func Doctor() *cobra.Command {
 }
 
 func doctorRunE(c *cobra.Command, args []string) error {
-	path, err := os.Getwd()
-	if err != nil {
-		return fmt.Errorf("unable to get current working directory: %w", err)
+	cfg, ok := c.Context().Value(config.ContextConfigKey).(config.Config)
+	if !ok {
+		return config.ErrContextConfigValueIsNotConfigType
 	}
 
-	log.Info().Str("path", path).Msg("validating knowledge base")
+	log.Info().Str("path", cfg.Path).Msg("validating knowledge base")
 
-	files, err := base.Read(path)
+	files, err := base.Read(cfg.Path)
 	if err != nil {
-		return fmt.Errorf("failed to read notes in knowledge base: %w", err)
+		return fmt.Errorf("reading notes in knowledge base: %w", err)
 	}
 
 	log.Info().Int("count", len(files)).Msgf("found %d notes", len(files))
@@ -50,7 +50,7 @@ func doctorRunE(c *cobra.Command, args []string) error {
 			foundErrors = append(foundErrors, foundError)
 		}
 
-		metaFields, err := metadata.Parse(filename)
+		metaFields, err := metadata.Parse(cfg, filename)
 		if err != nil {
 			foundError := fmt.Errorf(
 				"./%s: unable to parse front matter metadata: %w", filename, err,
@@ -66,7 +66,7 @@ func doctorRunE(c *cobra.Command, args []string) error {
 		}
 	}
 
-	if err := base.ValidateTemplatesExist(); err != nil {
+	if err := base.ValidateTemplatesExist(cfg); err != nil {
 		foundError := fmt.Errorf("missing template files: %w", err)
 		foundErrors = append(foundErrors, foundError)
 	}

@@ -22,12 +22,13 @@
   - https://github.com/cosmtrek/air
 - [ ] Add command to reset IDs
 - [ ] Create `atlas init` command
-- [ ] Use `path` config value when creating new notes etc
+- [ ] Make templates optional in validation
 
 # ✅ Completed
 
 > Most recent at the top.
 
+- [x] Use `path` config value when creating new notes etc
 - [x] Include configuration file with root path value that allows `atlas` to be run from anywhere
 - [x] Improve developer experience by having ephemeral knowledge base locally
 - [x] Improve the word list used for note

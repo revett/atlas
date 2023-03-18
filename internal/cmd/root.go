@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os/exec"
 
+	"github.com/revett/atlas/internal/config"
 	"github.com/revett/atlas/internal/note"
 	"github.com/revett/atlas/internal/schema"
 	"github.com/rs/zerolog/log"
@@ -47,15 +48,20 @@ func Root() *cobra.Command {
 	return &root
 }
 
-func rootRunE(c *cobra.Command, args []string) error {
+func rootRunE(cmd *cobra.Command, args []string) error {
+	cfg, ok := cmd.Context().Value(config.ContextConfigKey).(config.Config)
+	if !ok {
+		return config.ErrContextConfigValueIsNotConfigType
+	}
+
 	schema := args[0]
 
 	if autoDoctor {
 		log.Info().Msg("--auto-doctor flag enabled")
 
 		// TODO: refactor to use underlying validator rather than command itself
-		if err := Doctor().RunE(nil, nil); err != nil {
-			return fmt.Errorf("failed to run the doctor command before: %w", err)
+		if err := Doctor().RunE(cmd, args); err != nil {
+			return fmt.Errorf("running the doctor command before: %w", err)
 		}
 	}
 
@@ -65,16 +71,16 @@ func rootRunE(c *cobra.Command, args []string) error {
 
 	n, err := note.NewNote(schema)
 	if err != nil {
-		return fmt.Errorf("failed to create new note type: %w", err)
+		return fmt.Errorf("creating new note type: %w", err)
 	}
 
-	filepath, err := n.WriteToDisk(codeSnippet)
+	filepath, err := n.WriteToDisk(cfg, codeSnippet)
 	if err != nil {
-		return fmt.Errorf("failed to create new note: %w", err)
+		return fmt.Errorf("creating new note: %w", err)
 	}
 
 	if err := exec.Command("code", filepath).Run(); err != nil { //nolint:gosec
-		return fmt.Errorf("failed to open new note in vscode: %w", err)
+		return fmt.Errorf("opening new note in vscode: %w", err)
 	}
 
 	return nil

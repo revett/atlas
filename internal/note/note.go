@@ -4,9 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path"
+	"path/filepath"
 	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/revett/atlas/internal/config"
 	"github.com/revett/atlas/internal/file"
 	"github.com/revett/atlas/internal/input"
 	"github.com/revett/atlas/internal/metadata"
@@ -39,7 +42,7 @@ func NewNote(noteSchema string) (Note, error) {
 	filename, err := generateNoteFilename(noteSchema)
 	if err != nil {
 		return Note{}, fmt.Errorf(
-			"failed to generate filename for new note: %w", err,
+			"generating filename for new note: %w", err,
 		)
 	}
 
@@ -58,14 +61,18 @@ func NewNote(noteSchema string) (Note, error) {
 
 // WriteToDisk checks that the new note does not already exist, then creates the
 // new note file, and appends contents to the file (header, template).
-func (n Note) WriteToDisk(codeSnippet bool) (string, error) {
-	if err := file.DirectoryOrFileExists(n.Filename); err == nil {
-		log.Warn().Str("path", n.Filename).Msg("note already exists")
+func (n Note) WriteToDisk(cfg config.Config, codeSnippet bool) (string, error) {
+	notePath := filepath.ToSlash(
+		path.Join(cfg.Path, n.Filename),
+	)
+
+	if err := file.DirectoryOrFileExists(notePath); err == nil {
+		log.Warn().Str("path", notePath).Msg("note already exists")
 		log.Info().Msg("opening note")
-		return n.Filename, nil
+		return notePath, nil
 	}
 
-	templatePath, err := findTemplate(n.Filename)
+	templatePath, err := findTemplate(cfg, n.Filename)
 	if err != nil {
 		return "", err
 	}
@@ -75,7 +82,7 @@ func (n Note) WriteToDisk(codeSnippet bool) (string, error) {
 		return "", err
 	}
 
-	file, err := os.Create(n.Filename)
+	file, err := os.Create(notePath) //nolint:gosec
 	if err != nil {
 		return "", fmt.Errorf("unable to create new note file: %w", err)
 	}
@@ -94,7 +101,7 @@ func (n Note) WriteToDisk(codeSnippet bool) (string, error) {
 		return "", fmt.Errorf("unable to write template to new note file: %w", err)
 	}
 
-	return n.Filename, nil
+	return notePath, nil
 }
 
 func generateNoteFilename(noteSchema string) (string, error) { //nolint:funlen
@@ -168,7 +175,7 @@ func generateNoteFilename(noteSchema string) (string, error) { //nolint:funlen
 
 	filename, err := genFunc()
 	if err != nil {
-		return "", fmt.Errorf("failed to generate filename: %w", err)
+		return "", fmt.Errorf("generating filename: %w", err)
 	}
 
 	return fmt.Sprintf("%s.%s.md", noteSchema, filename), nil
@@ -181,7 +188,7 @@ func readInput(schema string, examples []string) (string, error) {
 
 	model, err := p.Run()
 	if err != nil {
-		return "", fmt.Errorf("failed when starting tui model: %w", err)
+		return "", fmt.Errorf("starting tui model: %w", err)
 	}
 
 	var returnValue input.ReturnValue
@@ -189,7 +196,7 @@ func readInput(schema string, examples []string) (string, error) {
 	err = json.Unmarshal([]byte(model.View()), &returnValue)
 	if err != nil {
 		return "", fmt.Errorf(
-			"failed to json unmarshal filename return value: %w", err,
+			"json unmarshalling filename return value: %w", err,
 		)
 	}
 

@@ -4,19 +4,24 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path"
 	"path/filepath"
 	"sort"
 	"strings"
-)
 
-const templatesDirectoryPath = "./templates/"
+	"github.com/revett/atlas/internal/config"
+)
 
 func appendCodeSnippet(c string) string {
 	s := "## Code Snippet\n\n" + "```\n\n" + "```"
 	return fmt.Sprintf("%s\n%s", c, s)
 }
 
-func findTemplate(title string) (string, error) {
+func findTemplate(cfg config.Config, title string) (string, error) {
+	templatesDirectoryPath := filepath.ToSlash(
+		path.Join(cfg.Path, "templates"),
+	)
+
 	files, err := os.ReadDir(templatesDirectoryPath)
 	if err != nil {
 		return "", ErrFindTemplatesReadDir
@@ -51,7 +56,10 @@ func findTemplate(title string) (string, error) {
 
 	for _, t := range templates {
 		if strings.HasPrefix(title, t) {
-			return fmt.Sprintf("%s%s.md", templatesDirectoryPath, t), nil
+			templateFilename := fmt.Sprintf("%s.md", t)
+			return filepath.ToSlash(
+				path.Join(templatesDirectoryPath, templateFilename),
+			), nil
 		}
 	}
 
@@ -61,12 +69,12 @@ func findTemplate(title string) (string, error) {
 func readTemplate(p string) (string, error) {
 	f, err := os.Open(p) //nolint:gosec
 	if err != nil {
-		return "", fmt.Errorf("failed to open template file: %w", err)
+		return "", fmt.Errorf("opening template file: %w", err)
 	}
 
 	b, err := io.ReadAll(f)
 	if err != nil {
-		return "", fmt.Errorf("failed to read contents of template file: %w", err)
+		return "", fmt.Errorf("reading contents of template file: %w", err)
 	}
 
 	return string(b), nil

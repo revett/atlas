@@ -16,5 +16,5 @@ func DirectoryOrFileExists(path string) error {
 		return fmt.Errorf("file '%s' does not exist: %w", path, err)
 	}
 
-	return fmt.Errorf("failed when checking if '%s' file exists: %w", path, err)
+	return fmt.Errorf("checking if '%s' file exists: %w", path, err)
 }
