@@ -66,11 +66,6 @@ func doctorRunE(c *cobra.Command, args []string) error {
 		}
 	}
 
-	if err := base.ValidateTemplatesExist(cfg); err != nil {
-		foundError := fmt.Errorf("missing template files: %w", err)
-		foundErrors = append(foundErrors, foundError)
-	}
-
 	log.Info().
 		Int("count", len(foundErrors)).
 		Msgf("detected %d validation errors", len(foundErrors))
