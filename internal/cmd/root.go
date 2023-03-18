@@ -48,8 +48,8 @@ func Root() *cobra.Command {
 	return &root
 }
 
-func rootRunE(c *cobra.Command, args []string) error {
-	cfg, ok := c.Context().Value(config.ContextConfigKey).(config.Config)
+func rootRunE(cmd *cobra.Command, args []string) error {
+	cfg, ok := cmd.Context().Value(config.ContextConfigKey).(config.Config)
 	if !ok {
 		return config.ErrContextConfigValueIsNotConfigType
 	}
@@ -60,7 +60,7 @@ func rootRunE(c *cobra.Command, args []string) error {
 		log.Info().Msg("--auto-doctor flag enabled")
 
 		// TODO: refactor to use underlying validator rather than command itself
-		if err := Doctor().RunE(c, args); err != nil {
+		if err := Doctor().RunE(cmd, args); err != nil {
 			return fmt.Errorf("running the doctor command before: %w", err)
 		}
 	}
