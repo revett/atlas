@@ -57,22 +57,22 @@ func (c Completion) View() string {
 	switch c.args[0] {
 	case "bash":
 		if err := c.cmd.Root().GenBashCompletion(buf); err != nil {
-			err := fmt.Errorf("failed to generate bash completion: %w", err)
+			err := fmt.Errorf("generating bash completion: %w", err)
 			return outputError(err)
 		}
 	case "fish":
 		if err := c.cmd.Root().GenFishCompletion(buf, true); err != nil {
-			err := fmt.Errorf("failed to generate fish completion: %w", err)
+			err := fmt.Errorf("generating fish completion: %w", err)
 			return outputError(err)
 		}
 	case "powershell":
 		if err := c.cmd.Root().GenPowerShellCompletionWithDesc(buf); err != nil {
-			err := fmt.Errorf("failed to generate powershell completion: %w", err)
+			err := fmt.Errorf("generating powershell completion: %w", err)
 			return outputError(err)
 		}
 	case "zsh":
 		if err := c.cmd.Root().GenZshCompletion(buf); err != nil {
-			err := fmt.Errorf("failed to generate zsh completion: %w", err)
+			err := fmt.Errorf("generating zsh completion: %w", err)
 			return outputError(err)
 		}
 	}

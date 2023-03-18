@@ -2,27 +2,35 @@ package base
 
 import (
 	"fmt"
+	"path"
+	"path/filepath"
 
+	"github.com/revett/atlas/internal/config"
 	"github.com/revett/atlas/internal/file"
 )
 
-const templateDirectoryPath = "./templates"
-
 // ValidateTemplatesExist checks that the templates directory exists, and that
 // it contains all of the required template Markdown files.
-func ValidateTemplatesExist() error {
-	if err := file.DirectoryOrFileExists(templateDirectoryPath); err != nil {
+func ValidateTemplatesExist(cfg config.Config) error {
+	templatesDirectoryPath := filepath.ToSlash(
+		path.Join(cfg.Path, "templates"),
+	)
+
+	if err := file.DirectoryOrFileExists(templatesDirectoryPath); err != nil {
 		return fmt.Errorf(
-			"failed when checking if template directory exists: %w", err,
+			"checking if template directory exists: %w", err,
 		)
 	}
 
 	for _, t := range requiredTemplates() {
-		p := fmt.Sprintf("%s/%s.md", templateDirectoryPath, t)
+		f := fmt.Sprintf("%s.md", t)
+		path := filepath.ToSlash(
+			path.Join(templatesDirectoryPath, f),
+		)
 
-		if err := file.DirectoryOrFileExists(p); err != nil {
+		if err := file.DirectoryOrFileExists(path); err != nil {
 			return fmt.Errorf(
-				"failed when checking if required template '%s' exists: %w", p, err,
+				"checking if required template '%s' exists: %w", path, err,
 			)
 		}
 	}

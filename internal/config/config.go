@@ -50,9 +50,22 @@ func NewConfig(version string) (*Config, error) {
 		return nil, fmt.Errorf("config is invalid: %w", err)
 	}
 
+	if !isDir(config.Path) {
+		return nil, fmt.Errorf("config.path is not a valid path to a directory: %s", config.Path)
+	}
+
 	return &config, nil
 }
 
 func configName() string {
 	return fmt.Sprintf(".%s-notes.yml", CLIName)
+}
+
+func isDir(p string) bool {
+	fileInfo, err := os.Stat(p)
+	if err != nil {
+		return false
+	}
+
+	return fileInfo.IsDir()
 }

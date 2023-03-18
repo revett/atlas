@@ -111,7 +111,7 @@ func (m Model) View() string {
 		bytes, err := json.Marshal(&rv)
 		if err != nil {
 			log.Error().Err(err).
-				Msg("failed when json marshalling filename input return value")
+				Msg("json marshalling filename input return value")
 			return ""
 		}
 

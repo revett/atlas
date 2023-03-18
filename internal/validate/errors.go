@@ -31,7 +31,7 @@ type Error uint8
 func (e Error) Error() string {
 	switch e {
 	case ErrFailedRegexMatch:
-		return "failed when matching string with regex"
+		return "matching string with regex"
 	case ErrInsufficientNumberOfFilenameParts:
 		return "filename does not have sufficient number of parts"
 	case ErrInvalidFilenameFormat:

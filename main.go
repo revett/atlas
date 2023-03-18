@@ -43,7 +43,7 @@ func main() {
 	root.AddCommand(commands...)
 
 	ctx := context.WithValue(
-		context.Background(), config.ContextConfigKey, cfg,
+		context.Background(), config.ContextConfigKey, *cfg,
 	)
 
 	if err := root.ExecuteContext(ctx); err != nil {
