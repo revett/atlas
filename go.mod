@@ -9,7 +9,7 @@ require (
 	github.com/charmbracelet/lipgloss v0.7.0
 	github.com/go-playground/validator/v10 v10.11.2
 	github.com/rs/zerolog v1.29.0
-	github.com/samber/lo v1.37.0
+	github.com/samber/lo v1.38.1
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.15.0
 	github.com/stretchr/testify v1.8.1
