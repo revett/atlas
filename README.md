@@ -17,8 +17,8 @@ personal workflow, and you always own the information you create.
 
 🔍 → Search for `"📖 Atlas Notes (revett.atlas)"` in your Visual Studio Code extensions tab.
 
-> Not working? View the extension in the
-> [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=revett.atlas).
+> _Not working? View the extension in the
+> [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=revett.atlas)._
 
 ## Documentation
 
