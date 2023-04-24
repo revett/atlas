@@ -15,10 +15,10 @@ personal workflow, and you always own the information you create.
 
 ## Install
 
-🛠️ → **[Install the Atlas extension](vscode:extension/revett.atlas) in Visual Studio Code**.
+🛠️ → [**Install the Atlas extension**](vscode:extension/revett.atlas) in Visual Studio Code.
 
 > Not working? View the extension in the
-> [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=adpyke.codesnap).
+> [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=revett.atlas).
 
 ## Documentation
 
