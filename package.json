@@ -1,0 +1,71 @@
+{
+  "name": "atlas",
+  "displayName": "Atlas",
+  "private": true,
+  "description": "Atlas is a hierarchical note-taking tool that focuses on simplicity and speed.",
+  "publisher": "revett",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "knowledge base",
+    "pkm",
+    "second brain",
+    "markdown",
+    "roam",
+    "notes",
+    "backlinks"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/revett/atlas.git"
+  },
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "homepage": "https://github.com/revett/atlas",
+  "contributes": {
+    "commands": [
+      {
+        "command": "atlas.createScratchNote",
+        "title": "📖 Atlas: Create Note (Scratch)"
+      },
+      {
+        "command": "atlas.createTopicNote",
+        "title": "📖 Atlas: Create Note (Topic)"
+      },
+      {
+        "command": "atlas.openDocumentation",
+        "title": "📖 Atlas: Open Documentation"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/lodash": "^4.14.194",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.77.0",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "@vscode/test-electron": "^2.3.0",
+    "eslint": "^8.36.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
