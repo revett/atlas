@@ -18,11 +18,10 @@ personal workflow, and you always own the information you create.
 > _Not working? View the extension in the
 > [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=revett.atlas)._
 
-## Documentation
+## Documentation <!-- omit from toc -->
 
-- [Documentation](#documentation)
-  - [Note IDs](#note-ids)
-  - [FAQ](#faq)
+- [Note IDs](#note-ids)
+- [FAQ](#faq)
 
 ### Note IDs
 
