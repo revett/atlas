@@ -1,5 +1,7 @@
 ## 🗂 Backlog
 
+- [ ] Command for deleting a note
+- [ ] Command for renaming a note
 - [ ] Command for creating Meeting note type
 - [ ] Command for creating System note type
 - [ ] Command for creating Entity note type

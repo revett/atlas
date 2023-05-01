@@ -2,8 +2,8 @@
 
 # Atlas <!-- omit from toc -->
 
-Atlas is a note-taking tool for [Visual Studio Code](https://code.visualstudio.com). It is built for
-those who value simplicity and speed, and uses a hierarchical note structure.
+Atlas is a note-taking tool for [Visual Studio Code](https://code.visualstudio.com). It uses a
+hierarchical note structure, and is built for those who value simplicity and speed.
 
 You can use Atlas to organize your code snippets, keep meeting notes, maintain a personal journal,
 write long-form content, and much more.
@@ -18,10 +18,7 @@ personal workflow, and you always own the information you create.
 > _Not working? View the extension in the
 > [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=revett.atlas)._
 
-## Documentation <!-- omit from toc -->
-
-- [Note IDs](#note-ids)
-- [FAQ](#faq)
+## Documentation
 
 ### Note IDs
 
@@ -36,7 +33,7 @@ For example:
 
 ```md
 ---
-id: mad-magenta-caribou
+id: grateful-emerald-turtle
 ---
 ```
 

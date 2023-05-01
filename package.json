@@ -30,12 +30,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "atlas.createScratchNote",
-        "title": "📖 Atlas: Create Note (Scratch)"
-      },
-      {
-        "command": "atlas.createTopicNote",
-        "title": "📖 Atlas: Create Note (Topic)"
+        "command": "atlas.createNote",
+        "title": "📖 Atlas: Create Note"
       },
       {
         "command": "atlas.openDocumentation",
