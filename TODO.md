@@ -14,7 +14,3 @@
 - [ ] Command for opening knowledge base in new VS Code window
 - [ ] Add validation of existing notes
 - [ ] Add Raycast extension
-- [ ] Fix issue where commands are not registering within local install
-  - https://stackoverflow.com/questions/49534068/command-not-found-in-vscode-extension
-- [ ] Bundle extension when packaging
-  - https://code.visualstudio.com/api/working-with-extensions/bundling-extension
