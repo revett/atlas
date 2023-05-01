@@ -2,10 +2,10 @@ import * as dayjs from "dayjs";
 import * as vscode from "vscode";
 import * as createNoteLib from "../lib/createNote";
 import { openDocumentation } from "../lib/openDocumentation";
-import { toastType, toast } from "../lib/toast";
+import { ToastType, toast } from "../lib/toast";
 
 // Types of actions within the vscode.QuickPick.
-enum quickPickActionType {
+enum QuickPickActionType {
   entity = "entity",
   meeting = "meeting",
   project = "project",
@@ -16,7 +16,7 @@ enum quickPickActionType {
 }
 
 // Labels within the vscode.QuickPick for each action.
-const quickPickActions: { [key in quickPickActionType]: string } = {
+const quickPickActions: { [key in QuickPickActionType]: string } = {
   entity: "$(location) Entity",
   meeting: "$(organization) Meeting",
   project: "$(file-directory-create) Project",
@@ -27,7 +27,7 @@ const quickPickActions: { [key in quickPickActionType]: string } = {
 };
 
 // Default note content for each action.
-const noteDefaultContent: { [key in quickPickActionType]: string } = {
+const noteDefaultContent: { [key in QuickPickActionType]: string } = {
   entity: `## TODO: Who? / What? / Where?
 
 Note about TODO`,
@@ -118,7 +118,7 @@ export const createNote = (): vscode.Disposable => {
     quickPick.onDidChangeSelection(async (selection) => {
       if (selection.length !== 1) {
         toast(
-          toastType.Error,
+          ToastType.error,
           `Expected a single note type to selected, got ${selection.length} instead.`
         );
       }
@@ -126,7 +126,7 @@ export const createNote = (): vscode.Disposable => {
       // Map the selected QuickPick label to an action type.
       const actionType = Object.entries(quickPickActions).find(
         ([key, value]) => value === selection[0].label
-      )?.[0] as quickPickActionType;
+      )?.[0] as QuickPickActionType;
 
       // Variable to control what happens next.
       let shouldCreateNote = false;
@@ -136,43 +136,43 @@ export const createNote = (): vscode.Disposable => {
 
       // Logic for each of the action types.
       switch (actionType) {
-        case quickPickActionType.entity:
+        case QuickPickActionType.entity:
           shouldCreateNote = true;
           requireFilenameInput = true;
           // Important to use [] as this string will be used within dayjs.Format().
-          filenameInputPrefix = `[${quickPickActionType.entity}]`;
+          filenameInputPrefix = `[${QuickPickActionType.entity}]`;
           break;
 
-        case quickPickActionType.meeting:
+        case QuickPickActionType.meeting:
           shouldCreateNote = true;
           requireFilenameInput = true;
-          filenameInputPrefix = `[${quickPickActionType.meeting}].YYYY.MM.DD.HHmm`;
+          filenameInputPrefix = `[${QuickPickActionType.meeting}].YYYY.MM.DD.HHmm`;
           break;
 
-        case quickPickActionType.project:
+        case QuickPickActionType.project:
           shouldCreateNote = true;
           requireFilenameInput = true;
-          filenameInputPrefix = `[${quickPickActionType.meeting}].YYYY.[Q]Q`;
+          filenameInputPrefix = `[${QuickPickActionType.meeting}].YYYY.[Q]Q`;
           break;
 
-        case quickPickActionType.scratch:
+        case QuickPickActionType.scratch:
           shouldCreateNote = true;
           filename = "[scratch].YYYY.MM.DD.HHmmss.[md]";
           break;
 
-        case quickPickActionType.system:
+        case QuickPickActionType.system:
           shouldCreateNote = true;
           requireFilenameInput = true;
-          filenameInputPrefix = `[${quickPickActionType.system}]`;
+          filenameInputPrefix = `[${QuickPickActionType.system}]`;
           break;
 
-        case quickPickActionType.topic:
+        case QuickPickActionType.topic:
           shouldCreateNote = true;
           requireFilenameInput = true;
-          filenameInputPrefix = `[${quickPickActionType.topic}]`;
+          filenameInputPrefix = `[${QuickPickActionType.topic}]`;
           break;
 
-        case quickPickActionType.help:
+        case QuickPickActionType.help:
           openDocumentation();
           break;
 
@@ -181,7 +181,7 @@ export const createNote = (): vscode.Disposable => {
           // in the switch statement.
           const assertNever: never = actionType;
           toast(
-            toastType.Error,
+            ToastType.error,
             "Unknown note type selected, unable to create new note."
           );
           break;

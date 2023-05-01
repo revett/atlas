@@ -14,4 +14,3 @@
 - [ ] Command for opening knowledge base in new VS Code window
 - [ ] Add validation of existing notes
 - [ ] Add Raycast extension
-- [ ] Fix issue where commands are not registering within local install

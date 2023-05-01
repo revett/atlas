@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { toast, toastType } from "./toast";
+import { toast, ToastType } from "./toast";
 
 export const openDocumentation = () => {
   vscode.commands.executeCommand(
@@ -7,5 +7,5 @@ export const openDocumentation = () => {
     vscode.Uri.parse("https://github.com/revett/atlas#documentation")
   );
 
-  toast(toastType.Success, "Opening documentation");
+  toast(ToastType.success, "Opening documentation");
 };
