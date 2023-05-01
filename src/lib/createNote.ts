@@ -1,8 +1,10 @@
-import * as vscode from "vscode";
+import * as dayjs from "dayjs";
 import * as fs from "fs";
+import * as vscode from "vscode";
 import { toastType, toast } from "../lib/toast";
+import { generateID } from "./generateID";
 
-export const createNote = async (filename: string, content: string) => {
+export const createNote = async (filenameFormat: string, content: string) => {
   // Check that there is an open folder/workspace in VS Code.
   const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
   if (!workspaceFolder) {
@@ -13,6 +15,17 @@ export const createNote = async (filename: string, content: string) => {
 
     return;
   }
+
+  const ts = dayjs();
+
+  const filename = ts.format(filenameFormat);
+  const contentWithMetadata = `---
+id: ${generateID()}
+created: ${ts.format("ddd, DD MMM YYYY HH:mm:ss z")}
+---
+
+${content}
+`;
 
   // Create the full path to the new note in the workspace.
   const noteWorkspacePath = vscode.Uri.joinPath(workspaceFolder.uri, filename);
@@ -31,7 +44,11 @@ export const createNote = async (filename: string, content: string) => {
     // Create the new file, and insert the content.
     const editActions = new vscode.WorkspaceEdit();
     editActions.createFile(noteWorkspacePath, { ignoreIfExists: true });
-    editActions.insert(noteWorkspacePath, new vscode.Position(0, 0), content);
+    editActions.insert(
+      noteWorkspacePath,
+      new vscode.Position(0, 0),
+      contentWithMetadata
+    );
     await vscode.workspace.applyEdit(editActions);
 
     await toast(toastType.Success, `Created "${filename}"`);

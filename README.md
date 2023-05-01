@@ -1,9 +1,9 @@
 <img src="./assets/icon@256px.png" alt="Icon" align="right">
 
-# Atlas <!-- omit from toc -->
+# Atlas
 
-Atlas is a note-taking tool for [Visual Studio Code](https://code.visualstudio.com). It is built for
-those who value simplicity and speed, and uses a hierarchical note structure.
+Atlas is a note-taking tool for [Visual Studio Code](https://code.visualstudio.com). It uses a
+hierarchical note structure, and is built for those who value simplicity and speed.
 
 You can use Atlas to organize your code snippets, keep meeting notes, maintain a personal journal,
 write long-form content, and much more.
@@ -11,17 +11,14 @@ write long-form content, and much more.
 It is free, open-source, local-first, and markdown-based. Atlas can be customized to suit your
 personal workflow, and you always own the information you create.
 
-## Install <!-- omit from toc -->
+## Install
 
 🔍 → Search for `"📖 Atlas Notes (revett.atlas)"` in your Visual Studio Code extensions tab.
 
 > _Not working? View the extension in the
 > [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=revett.atlas)._
 
-## Documentation <!-- omit from toc -->
-
-- [Note IDs](#note-ids)
-- [FAQ](#faq)
+## Documentation
 
 ### Note IDs
 
@@ -36,7 +33,7 @@ For example:
 
 ```md
 ---
-id: mad-magenta-caribou
+id: grateful-emerald-turtle
 ---
 ```
 
@@ -44,11 +41,11 @@ id: mad-magenta-caribou
 
 📘 Nothing here yet.
 
-## Roadmap <!-- omit from toc -->
+## Roadmap
 
 🗂 See [TODO.md](https://github.com/revett/atlas/blob/main/TODO.md).
 
-## Why? <!-- omit from toc -->
+## Why?
 
 Atlas was originally created as a Bash script in May 2022 (see
 [#ef85ce9](https://github.com/revett/atlas/commit/ef85ce9d70593c8b3dfb8e1c2aab56300bbee959)), as I had
@@ -56,7 +53,7 @@ become frustrated with overly complex tools that got in the way of writing and r
 configuration. I still believe this is the case with many of the tools in the ecosystem, and that
 there is space for a tool designed with simplicity, speed, and sensible defaults in mind.
 
-## Credits <!-- omit from toc -->
+## Credits
 
 - Inspiration from the Foam [README](https://github.com/foambubble/foam)
 - Roadmap ideas from [Dendron](https://github.com/dendronhq/dendron),
