@@ -12,7 +12,7 @@
   - https://code.visualstudio.com/api/ux-guidelines/notifications
 - [ ] Add settings configuration
   - https://code.visualstudio.com/api/ux-guidelines/settings
-- [ ] Command for opening knowledge base
-- [ ] Install the extension locally
-  - https://code.visualstudio.com/api/working-with-extensions/testing-extension
+- [ ] Command for opening knowledge base in new VS Code window
+- [ ] Add validation of existing notes
 - [ ] Add Raycast extension
+- [ ] Fix issue where commands are not registering within local install

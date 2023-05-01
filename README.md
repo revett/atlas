@@ -1,4 +1,4 @@
-<img src="./assets/icon@256px.png" alt="Icon" align="right">
+<img src="./assets/icon-256px.png" alt="Icon" align="right">
 
 # Atlas <!-- omit from toc -->
 
@@ -13,10 +13,20 @@ personal workflow, and you always own the information you create.
 
 ## Install <!-- omit from toc -->
 
-🔍 → Search for `"📖 Atlas Notes (revett.atlas)"` in your Visual Studio Code extensions tab.
+Atlas has not yet made its `v0.1.0` release to the
+[VS Code Marketplace](https://marketplace.visualstudio.com), so for now you can install it by
+running:
 
-> _Not working? View the extension in the
-> [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=revett.atlas)._
+```bash
+# Install vsce
+yarn global add @vscode/vsce
+
+# Package the extension manually
+vsce package --yarn
+
+# Install extension
+code --install-extension atlas-0.1.0.vsix
+```
 
 ## Documentation <!-- omit from toc -->
 
