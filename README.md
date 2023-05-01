@@ -40,7 +40,7 @@ there is space for a tool designed with simplicity, speed, and sensible defaults
 
 ## Credits
 
-- Inspiration from the Dendron [Foam](https://github.com/foambubble/foam)
+- Inspiration from the Foam [README](https://github.com/foambubble/foam)
 - Roadmap ideas from [Dendron](https://github.com/dendronhq/dendron),
   [Foam](https://github.com/foambubble/foam), [Obsidian](https://github.com/obsidianmd) and
   [RelaNote](https://relanote.com)
