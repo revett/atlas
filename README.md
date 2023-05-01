@@ -33,7 +33,7 @@ personal workflow, and you always own the information you create.
 ## Why?
 
 Atlas was originally created as a Bash script in May 2022 (see
-[commit](https://github.com/revett/atlas/commit/ef85ce9d70593c8b3dfb8e1c2aab56300bbee959)), as I had
+[#ef85ce9](https://github.com/revett/atlas/commit/ef85ce9d70593c8b3dfb8e1c2aab56300bbee959)), as I had
 become frustrated with overly complex tools that got in the way of writing and required too much
 configuration. I still believe this is the case with many of the tools in the ecosystem, and that
 there is space for a tool designed with simplicity, speed, and sensible defaults in mind.
