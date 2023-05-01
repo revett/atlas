@@ -1,4 +1,4 @@
-<img src="./assets/icon@256px.png" alt="Icon" width="100%" align="right">
+<img src="./assets/icon@256px.png" alt="Icon" align="right">
 
 # Atlas
 
