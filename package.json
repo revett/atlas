@@ -5,9 +5,11 @@
   "description": "Atlas is a hierarchical note-taking tool that focuses on simplicity and speed.",
   "publisher": "revett",
   "version": "0.1.0",
+  "main": "./out/extension.js",
   "engines": {
     "vscode": "^1.70.0"
   },
+  "icon": "./assets/icon-128px.png",
   "categories": [
     "Other"
   ],
@@ -20,12 +22,10 @@
     "notes",
     "backlinks"
   ],
+  "homepage": "https://github.com/revett/atlas",
   "repository": {
     "url": "https://github.com/revett/atlas"
   },
-  "activationEvents": [],
-  "main": "./out/extension.js",
-  "homepage": "https://github.com/revett/atlas",
   "contributes": {
     "commands": [
       {
@@ -38,6 +38,10 @@
       }
     ]
   },
+  "activationEvents": [
+    "onCommand:atlas.createNote",
+    "onCommand:atlas.openDocumentation"
+  ],
   "scripts": {
     "vscode:prepublish": "yarn run compile",
     "compile": "tsc -p ./",
@@ -61,6 +65,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "dayjs": "^1.11.7",
     "lodash": "^4.17.21"
   }
 }

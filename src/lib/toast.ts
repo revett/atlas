@@ -1,18 +1,18 @@
 import * as vscode from "vscode";
 
-export enum toastType {
-  Error = "error",
-  Success = "success",
+export enum ToastType {
+  error = "error",
+  success = "success",
 }
 
-export const toast = (type: toastType, message: string) => {
+export const toast = (type: ToastType, message: string) => {
   const s = `📖 Atlas: ${message}`;
 
   switch (type) {
-    case toastType.Error:
+    case ToastType.error:
       vscode.window.showErrorMessage(s);
       break;
-    case toastType.Success:
+    case ToastType.success:
       vscode.window.showInformationMessage(s);
       break;
   }

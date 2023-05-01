@@ -1,7 +1,7 @@
 import * as dayjs from "dayjs";
 import * as fs from "fs";
 import * as vscode from "vscode";
-import { toastType, toast } from "../lib/toast";
+import { ToastType, toast } from "../lib/toast";
 import { generateID } from "./generateID";
 
 export const createNote = async (filenameFormat: string, content: string) => {
@@ -9,7 +9,7 @@ export const createNote = async (filenameFormat: string, content: string) => {
   const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
   if (!workspaceFolder) {
     await toast(
-      toastType.Error,
+      ToastType.error,
       "Unable to create file as no folder/workspace is open in VS Code."
     );
 
@@ -33,7 +33,7 @@ ${content}
   // Check if file exists, if so open it.
   fs.access(noteWorkspacePath.path, fs.constants.F_OK, async (err) => {
     if (!err) {
-      await toast(toastType.Success, `Note exists, opening "${filename}"`);
+      await toast(ToastType.success, `Note exists, opening "${filename}"`);
 
       const note = await vscode.workspace.openTextDocument(noteWorkspacePath);
       await vscode.window.showTextDocument(note);
@@ -51,7 +51,7 @@ ${content}
     );
     await vscode.workspace.applyEdit(editActions);
 
-    await toast(toastType.Success, `Created "${filename}"`);
+    await toast(ToastType.success, `Created "${filename}"`);
 
     // Save the new file.
     const note = await vscode.workspace.openTextDocument(noteWorkspacePath);
