@@ -1,6 +1,6 @@
 <img src="./assets/icon@256px.png" alt="Icon" align="right">
 
-# Atlas
+# Atlas <!-- omit from toc -->
 
 Atlas is a note-taking tool for [Visual Studio Code](https://code.visualstudio.com). It is built for
 those who value simplicity and speed, and uses a hierarchical note structure.
@@ -11,7 +11,7 @@ write long-form content, and much more.
 It is free, open-source, local-first, and markdown-based. Atlas can be customized to suit your
 personal workflow, and you always own the information you create.
 
-## Install
+## Install <!-- omit from toc -->
 
 🔍 → Search for `"📖 Atlas Notes (revett.atlas)"` in your Visual Studio Code extensions tab.
 
@@ -20,17 +20,36 @@ personal workflow, and you always own the information you create.
 
 ## Documentation
 
-⏳
+- [Documentation](#documentation)
+  - [Note IDs](#note-ids)
+  - [FAQ](#faq)
+
+### Note IDs
+
+Within the Frontmatter metadata block at the top of each note will be a unique three word
+identifier, which uses the following format:
+
+```
+{colour}-{emotion}-{animal}
+```
+
+For example:
+
+```md
+---
+id: mad-magenta-caribou
+---
+```
 
 ### FAQ
 
 📘 Nothing here yet.
 
-## Roadmap
+## Roadmap <!-- omit from toc -->
 
 🗂 See [TODO.md](https://github.com/revett/atlas/blob/main/TODO.md).
 
-## Why?
+## Why? <!-- omit from toc -->
 
 Atlas was originally created as a Bash script in May 2022 (see
 [#ef85ce9](https://github.com/revett/atlas/commit/ef85ce9d70593c8b3dfb8e1c2aab56300bbee959)), as I had
@@ -38,7 +57,7 @@ become frustrated with overly complex tools that got in the way of writing and r
 configuration. I still believe this is the case with many of the tools in the ecosystem, and that
 there is space for a tool designed with simplicity, speed, and sensible defaults in mind.
 
-## Credits
+## Credits <!-- omit from toc -->
 
 - Inspiration from the Foam [README](https://github.com/foambubble/foam)
 - Roadmap ideas from [Dendron](https://github.com/dendronhq/dendron),
