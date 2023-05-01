@@ -1,13 +1,12 @@
 ## 🗂 Backlog
 
-- [ ] Command for creating Meeting note type
-- [ ] Command for creating System note type
-- [ ] Command for creating Entity note type
-- [ ] Command for creating Project note type
+- [ ] Command for deleting a note
+- [ ] Command for renaming a note
 - [ ] Set up linting
 - [ ] Set up continuous releases to VS Code
 - [ ] Command for creating sibling note
 - [ ] Command for creating child note
+- [ ] Command for creating parent note
 - [ ] Improve notifications with buttons
   - https://code.visualstudio.com/api/ux-guidelines/notifications
 - [ ] Add settings configuration
